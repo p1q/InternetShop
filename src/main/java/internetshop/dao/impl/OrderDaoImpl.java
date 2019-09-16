@@ -37,5 +37,4 @@ public class OrderDaoImpl implements OrderDao {
         DataBase.orders
                 .removeIf(order -> order.getId().equals(id));
     }
-
 }

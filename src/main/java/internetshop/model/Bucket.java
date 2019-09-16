@@ -7,7 +7,6 @@ import java.util.List;
 public class Bucket {
     private Long id;
     private List<Item> items;
-    private Long orderId;
     private Long userId;
 
     public Bucket() {
@@ -37,13 +36,5 @@ public class Bucket {
 
     public void setUserId(Long userId) {
         this.userId = userId;
-    }
-
-    public Long getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(Long orderId) {
-        this.orderId = orderId;
     }
 }

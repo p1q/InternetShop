@@ -7,16 +7,18 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
+import org.apache.log4j.Logger;
 
 public class Injector {
     private static List<Class> classes = new ArrayList<>();
     private static final String MAIN_PACKAGE = "internetshop";
+    private static final Logger logger = Logger.getLogger(Injector.class);
 
     static {
         try {
             classes.addAll(getClasses(MAIN_PACKAGE));
         } catch (ClassNotFoundException | IOException e) {
-            e.printStackTrace();
+            logger.error(e);
         }
     }
 

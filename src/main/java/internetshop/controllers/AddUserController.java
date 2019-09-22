@@ -5,6 +5,7 @@ import internetshop.model.Bucket;
 import internetshop.model.User;
 import internetshop.service.BucketService;
 import internetshop.service.UserService;
+import org.apache.log4j.Logger;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -13,6 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class AddUserController extends HttpServlet {
+    private static final Logger logger = Logger.getLogger(InjectInitializer.class);
+
     @Inject
     private static UserService userService;
     @Inject
@@ -39,6 +42,7 @@ public class AddUserController extends HttpServlet {
 
         try (PrintWriter writer = response.getWriter()) {
             writer.println("<h3>USER ADDED.</h3>");
+            logger.info("A user was added.");
         }
     }
 }

@@ -3,22 +3,22 @@ package internetshop.model;
 import internetshop.service.IdGenerator;
 
 public class Item {
-    private Long id;
+    private Long itemId;
     private String name;
     private Double price;
 
     public Item(String name, Double price) {
-        this.id = IdGenerator.generateItemId();
+        this.itemId = IdGenerator.generateItemId();
         this.name = name;
         this.price = price;
     }
 
     public Long getId() {
-        return id;
+        return itemId;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.itemId = id;
     }
 
     public String getName() {
@@ -35,5 +35,13 @@ public class Item {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return "Item {"
+                + "itemId=" + itemId
+                + ", name='" + name + '\''
+                + ", price=" + price + '}';
     }
 }

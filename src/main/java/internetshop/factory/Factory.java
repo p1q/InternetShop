@@ -18,52 +18,35 @@ import internetshop.service.impl.OrderServiceImpl;
 import internetshop.service.impl.UserServiceImpl;
 
 public class Factory {
-    private static ItemDao itemDao;
-    private static ItemService itemService;
-    private static BucketDao bucketDao;
-    private static BucketService bucketService;
-    private static OrderDao orderDao;
-    private static UserDao userDao;
-    private static OrderService orderService;
-    private static UserService userService;
-
-    public static BucketDao getBucketDao() {
-        return bucketDao != null ? bucketDao :
-                (bucketDao = new BucketDaoImpl());
+    public static ItemService getItemService() {
+        return new ItemServiceImpl();
     }
 
     public static BucketService getBucketService() {
-        return bucketService != null ? bucketService :
-                (bucketService = new BucketServiceImpl());
-    }
-
-    public static ItemDao getItemDao() {
-        return itemDao != null ? itemDao :
-                (itemDao = new ItemDaoImpl());
-    }
-
-    public static ItemService getItemService() {
-        return itemService != null ? itemService :
-                (itemService = new ItemServiceImpl());
-    }
-
-    public static UserDao getUserDao() {
-        return userDao != null ? userDao :
-                (userDao = new UserDaoImpl());
-    }
-
-    public static OrderDao getOrderDao() {
-        return orderDao != null ? orderDao :
-                (orderDao = new OrderDaoImpl());
-    }
-
-    public static OrderService getOrderService() {
-        return orderService != null ? orderService :
-                (orderService = new OrderServiceImpl());
+        return new BucketServiceImpl();
     }
 
     public static UserService getUserService() {
-        return userService != null ? userService :
-                (userService = new UserServiceImpl());
+        return new UserServiceImpl();
+    }
+
+    public static OrderService getOrderService() {
+        return new OrderServiceImpl();
+    }
+
+    public static BucketDao getBucketDao() {
+        return new BucketDaoImpl();
+    }
+
+    public static ItemDao getItemDao() {
+        return new ItemDaoImpl();
+    }
+
+    public static UserDao getUserDao() {
+        return new UserDaoImpl();
+    }
+
+    public static OrderDao getOrderDao() {
+        return new OrderDaoImpl();
     }
 }

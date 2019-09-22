@@ -7,9 +7,11 @@ import java.util.List;
 public interface BucketService {
     List<Item> getAllItems(Bucket bucket);
 
-    Bucket add(Bucket bucket);
+    Bucket create(Bucket bucket);
 
     Bucket addItem(Bucket bucket, Item item);
+
+    Bucket deleteItem(Bucket bucket, Item item);
 
     Bucket get(Long id);
 

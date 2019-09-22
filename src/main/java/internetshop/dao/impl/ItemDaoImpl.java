@@ -1,16 +1,17 @@
 package internetshop.dao.impl;
 
+import internetshop.annotations.Dao;
 import internetshop.dao.ItemDao;
 import internetshop.database.DataBase;
-import internetshop.lib.Dao;
 import internetshop.model.Item;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Dao
 public class ItemDaoImpl implements ItemDao {
 
     @Override
-    public Item create(Item item) {
+    public Item add(Item item) {
         DataBase.items.add(item);
         return item;
     }
@@ -22,6 +23,11 @@ public class ItemDaoImpl implements ItemDao {
                 .findFirst()
                 .orElseThrow(() -> new NoSuchElementException("Item ID '"
                         + id + "' wasn't found!"));
+    }
+
+    @Override
+    public List getAll() {
+        return DataBase.items;
     }
 
     @Override

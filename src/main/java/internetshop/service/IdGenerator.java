@@ -7,18 +7,18 @@ public class IdGenerator {
     private static long bucketId = 0;
 
     public static long generateUserId() {
-        return ++userId;
+        return userId++;
     }
 
     public static long generateItemId() {
-        return ++itemId;
+        return itemId++;
     }
 
     public static long generateOrderId() {
-        return ++orderId;
+        return orderId++;
     }
 
     public static long generateBucketId() {
-        return ++bucketId;
+        return bucketId++;
     }
 }

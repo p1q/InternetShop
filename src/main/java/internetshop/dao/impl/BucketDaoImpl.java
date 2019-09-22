@@ -1,8 +1,8 @@
 package internetshop.dao.impl;
 
+import internetshop.annotations.Dao;
 import internetshop.dao.BucketDao;
 import internetshop.database.DataBase;
-import internetshop.lib.Dao;
 import internetshop.model.Bucket;
 import java.util.NoSuchElementException;
 
@@ -25,11 +25,14 @@ public class BucketDaoImpl implements BucketDao {
     }
 
     @Override
-    public Bucket update(Bucket bucketToUpdate) {
-        Bucket bucket = get(bucketToUpdate.getId());
-        bucket.setItems(bucketToUpdate.getItems());
-        bucket.setUserId(bucketToUpdate.getUserId());
-        return bucket;
+    public Bucket update(Bucket bucket) {
+        for (int i = 0; i < DataBase.buckets.size(); i++) {
+            if (DataBase.buckets.get(i).getId().equals(bucket.getId())) {
+                DataBase.buckets.set(i, bucket);
+                return bucket;
+            }
+        }
+        throw new NoSuchElementException();
     }
 
     @Override

@@ -1,10 +1,11 @@
 package internetshop.service.impl;
 
+import internetshop.annotations.Inject;
+import internetshop.annotations.Service;
 import internetshop.dao.ItemDao;
-import internetshop.lib.Inject;
 import internetshop.model.Item;
 import internetshop.service.ItemService;
-import internetshop.service.Service;
+import java.util.List;
 
 @Service
 public class ItemServiceImpl implements ItemService {
@@ -14,12 +15,17 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public Item create(Item item) {
-        return itemDao.create(item);
+        return itemDao.add(item);
     }
 
     @Override
     public Item get(Long id) {
         return itemDao.get(id);
+    }
+
+    @Override
+    public List getAll() {
+        return itemDao.getAll();
     }
 
     @Override

@@ -5,21 +5,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Bucket {
-    private Long id;
+    private Long bucketId;
     private List<Item> items;
-    private Long userId;
+    private User user;
 
-    public Bucket() {
-        this.id = IdGenerator.generateBucketId();
+    public Bucket(User user) {
+        this.bucketId = IdGenerator.generateBucketId();
+        this.user = user;
+        user.setBucket(this);
         items = new ArrayList<>();
     }
 
     public Long getId() {
-        return id;
+        return bucketId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(Long bucketId) {
+        this.bucketId = bucketId;
     }
 
     public List<Item> getItems() {
@@ -30,11 +32,11 @@ public class Bucket {
         this.items = items;
     }
 
-    public Long getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 }

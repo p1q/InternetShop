@@ -7,12 +7,9 @@ import internetshop.service.BucketService;
 import internetshop.service.UserService;
 import java.io.IOException;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 
 public class RegistrationController extends HttpServlet {
-
     @Inject
     private static UserService userService;
     @Inject
@@ -28,9 +25,6 @@ public class RegistrationController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
-        response.setStatus(200);
-        response.setContentType("text/html");
-
         User user = new User();
         user.setUserName(request.getParameter("username"));
         user.setSurname((request.getParameter("surname")));
@@ -39,9 +33,16 @@ public class RegistrationController extends HttpServlet {
         user.setLogin((request.getParameter("login")));
         user.setPassword((request.getParameter("password")));
         userService.create(user);
-        Bucket bucket = new Bucket(user);
-        bucketService.create(bucket);
 
-        response.sendRedirect(request.getContextPath() + "/show-all-users");
+        Bucket bucket = new Bucket();
+        bucketService.create(bucket);
+        user.setBucketId(bucket.getBucketId());
+
+        HttpSession session = request.getSession(true);
+        session.setAttribute("userId", user.getUserId());
+        Cookie cookie = new Cookie("internetshop", user.getToken());
+        response.addCookie(cookie);
+
+        response.sendRedirect(request.getContextPath() + "/");
     }
 }

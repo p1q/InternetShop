@@ -1,11 +1,10 @@
 package internetshop.service;
 
-import internetshop.model.Bucket;
 import internetshop.model.Order;
 import java.util.List;
 
 public interface OrderService {
-    Order checkout(Bucket bucket);
+    Order checkout(Long bucketId, Long userId);
 
     Order add(Order order);
 

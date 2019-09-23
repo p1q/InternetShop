@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class DeleteUserController extends HttpServlet {
-
     @Inject
     private static UserService userService;
 

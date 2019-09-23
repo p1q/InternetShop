@@ -22,7 +22,7 @@
     </form>
 
     <!-- Show all items button -->
-    <form action = "show-all-items" method = "POST">
+    <form action = "show-all-items" method = "GET">
       <input type = "submit" value = "Show all items"/>
     </form>
 
@@ -39,6 +39,18 @@
     <!-- Show all orders button -->
     <form action = "show-all-orders" method = "GET">
       <input type = "submit" value = "Show all orders"/>
+    </form>
+
+  <hr>
+
+    <!-- Login button -->
+    <form action = "login" method = "GET">
+      <input type = "submit" value = "Login"/>
+    </form>
+
+    <!-- User orders button -->
+    <form action = "show-user-orders" method = "GET">
+      <input type = "submit" value = "Show user orders"/>
     </form>
 
   </body>

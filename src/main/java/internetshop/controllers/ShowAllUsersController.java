@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class ShowAllUsersController extends HttpServlet {
-
     @Inject
     private static UserService userService;
 

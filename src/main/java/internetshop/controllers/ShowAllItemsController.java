@@ -16,7 +16,7 @@ public class ShowAllItemsController extends HttpServlet {
     private static ItemService itemService;
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         List<Item> items = itemService.getAll();
         request.setAttribute("items", items);

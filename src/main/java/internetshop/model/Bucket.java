@@ -7,20 +7,17 @@ import java.util.List;
 public class Bucket {
     private Long bucketId;
     private List<Item> items;
-    private User user;
 
-    public Bucket(User user) {
+    public Bucket() {
         this.bucketId = IdGenerator.generateBucketId();
-        this.user = user;
-        user.setBucket(this);
         items = new ArrayList<>();
     }
 
-    public Long getId() {
+    public Long getBucketId() {
         return bucketId;
     }
 
-    public void setId(Long bucketId) {
+    public void setBucketId(Long bucketId) {
         this.bucketId = bucketId;
     }
 
@@ -30,13 +27,5 @@ public class Bucket {
 
     public void setItems(List<Item> items) {
         this.items = items;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 }

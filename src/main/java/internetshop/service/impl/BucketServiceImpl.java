@@ -1,12 +1,12 @@
 package internetshop.service.impl;
 
+import internetshop.annotations.Inject;
+import internetshop.annotations.Service;
 import internetshop.dao.BucketDao;
 import internetshop.dao.ItemDao;
-import internetshop.lib.Inject;
 import internetshop.model.Bucket;
 import internetshop.model.Item;
 import internetshop.service.BucketService;
-import internetshop.service.Service;
 import java.util.List;
 
 @Service
@@ -14,11 +14,12 @@ public class BucketServiceImpl implements BucketService {
 
     @Inject
     private static BucketDao bucketDao;
+
     @Inject
     private static ItemDao itemDao;
 
     @Override
-    public Bucket add(Bucket bucket) {
+    public Bucket create(Bucket bucket) {
         return bucketDao.create(bucket);
     }
 
@@ -39,8 +40,13 @@ public class BucketServiceImpl implements BucketService {
 
     @Override
     public Bucket addItem(Bucket bucket, Item item) {
-        Item receivedItem = itemDao.get(item.getId());
-        bucket.getItems().add(receivedItem);
+        bucket.getItems().add(itemDao.get(item.getId()));
+        return bucketDao.update(bucket);
+    }
+
+    @Override
+    public Bucket deleteItem(Bucket bucket, Item item) {
+        bucket.getItems().remove((itemDao.get(item.getId())));
         return bucketDao.update(bucket);
     }
 

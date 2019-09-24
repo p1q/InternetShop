@@ -5,24 +5,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Order {
-    private Long id;
+    private Long orderId;
     private List<Item> items;
     private Long userId;
-    private User user;
 
     public Order() {
-        this.id = IdGenerator.generateOrderId();
+        this.orderId = IdGenerator.generateOrderId();
         items = new ArrayList<>();
     }
 
-    public Order(List<Item> items, User user) {
-        this.id = IdGenerator.generateOrderId();
+    public Order(List<Item> items, Long userId) {
+        this.orderId = IdGenerator.generateOrderId();
         this.items = items;
-        this.user = user;
+        this.userId = userId;
     }
 
     public Long getId() {
-        return id;
+        return orderId;
     }
 
     public List<Item> getItems() {
@@ -33,11 +32,8 @@ public class Order {
         this.items = items;
     }
 
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    @Override
+    public String toString() {
+        return "Order{" + "id=" + orderId + ", userId=" + userId + ", items=" + items + '}';
     }
 }

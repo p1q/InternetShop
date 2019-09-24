@@ -1,17 +1,17 @@
 package internetshop.service;
 
-import internetshop.model.Item;
+import internetshop.model.Bucket;
 import internetshop.model.Order;
-import internetshop.model.User;
-
 import java.util.List;
 
 public interface OrderService {
-    Order checkout(List<Item> items, User user);
+    Order checkout(Bucket bucket);
 
     Order add(Order order);
 
     Order get(Long id);
+
+    List getAll();
 
     Order update(Order order);
 

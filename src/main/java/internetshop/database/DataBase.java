@@ -4,7 +4,6 @@ import internetshop.model.Bucket;
 import internetshop.model.Item;
 import internetshop.model.Order;
 import internetshop.model.User;
-
 import java.util.ArrayList;
 import java.util.List;
 

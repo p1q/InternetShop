@@ -1,10 +1,11 @@
 package internetshop.service.impl;
 
+import internetshop.annotations.Inject;
+import internetshop.annotations.Service;
 import internetshop.dao.BucketDao;
 import internetshop.dao.UserDao;
-import internetshop.lib.Inject;
+import internetshop.database.DataBase;
 import internetshop.model.User;
-import internetshop.service.Service;
 import internetshop.service.UserService;
 import java.util.List;
 
@@ -19,14 +20,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List getOrders(User user) {
-        return userDao.get(user.getId()).getOrders();
+        return userDao.get(user.getUserId()).getOrders();
     }
 
     @Override
-    public User add(User user) {
-        User newUser = userDao.add(user);
-        bucketDao.create(newUser.getBucket());
-        return newUser;
+    public List<User> getAll() {
+        return DataBase.users;
+    }
+
+    @Override
+    public User create(User user) {
+        return userDao.add(user);
     }
 
     @Override

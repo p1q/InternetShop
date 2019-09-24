@@ -5,21 +5,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Bucket {
-    private Long id;
+    private Long bucketId;
     private List<Item> items;
-    private Long userId;
 
     public Bucket() {
-        this.id = IdGenerator.generateBucketId();
+        this.bucketId = IdGenerator.generateBucketId();
         items = new ArrayList<>();
     }
 
-    public Long getId() {
-        return id;
+    public Long getBucketId() {
+        return bucketId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setBucketId(Long bucketId) {
+        this.bucketId = bucketId;
     }
 
     public List<Item> getItems() {
@@ -28,13 +27,5 @@ public class Bucket {
 
     public void setItems(List<Item> items) {
         this.items = items;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
     }
 }

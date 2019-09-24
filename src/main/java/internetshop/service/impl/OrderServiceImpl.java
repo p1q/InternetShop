@@ -1,13 +1,14 @@
 package internetshop.service.impl;
 
+import internetshop.annotations.Inject;
+import internetshop.annotations.Service;
 import internetshop.dao.OrderDao;
 import internetshop.dao.UserDao;
-import internetshop.lib.Inject;
+import internetshop.model.Bucket;
 import internetshop.model.Item;
 import internetshop.model.Order;
-import internetshop.model.User;
 import internetshop.service.OrderService;
-import internetshop.service.Service;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -30,6 +31,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public List getAll() {
+        return orderDao.getAll();
+    }
+
+    @Override
     public Order update(Order order) {
         return orderDao.update(order);
     }
@@ -40,11 +46,12 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order checkout(List<Item> items, User user) {
-        Order order = new Order(items, user);
+    public Order checkout(Bucket bucket) {
+        Order order = new Order(bucket.getItems(), bucket.getUser().getUserId());
         orderDao.add(order);
-        userDao.get(user.getId()).getOrders().add(order);
-        userDao.get(user.getId()).getBucket().getItems().clear();
+        userDao.get(bucket.getUser().getUserId()).getOrders().add(order);
+        List<Item> itemsCopy = new ArrayList<>(order.getItems());
+        orderDao.setItems(order.getId().intValue(), itemsCopy);
         return order;
     }
 }

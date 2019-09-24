@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+    
+    <listener>
+        <listener-class>internetshop.controllers.InjectInitializer</listener-class>
+    </listener>
+
+    <servlet>
+        <servlet-name>add-item</servlet-name>
+        <servlet-class>internetshop.controllers.AddItemController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>add-item</servlet-name>
+        <url-pattern>/add-item</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>add-item-to-bucket</servlet-name>
+        <servlet-class>internetshop.controllers.AddItemToBucketController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>add-item-to-bucket</servlet-name>
+        <url-pattern>/add-item-to-bucket</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>added-item</servlet-name>
+        <servlet-class>internetshop.controllers.AddItemController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>added-item</servlet-name>
+        <url-pattern>/added-item</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>add-user</servlet-name>
+        <servlet-class>internetshop.controllers.AddUserController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>add-user</servlet-name>
+        <url-pattern>/add-user</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>added-user</servlet-name>
+        <servlet-class>internetshop.controllers.AddUserController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>added-user</servlet-name>
+        <url-pattern>/added-user</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>checkout</servlet-name>
+        <servlet-class>internetshop.controllers.CheckoutController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>checkout</servlet-name>
+        <url-pattern>/checkout</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>delete-item-from-bucket</servlet-name>
+        <servlet-class>internetshop.controllers.DeleteItemFromBucketController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>delete-item-from-bucket</servlet-name>
+        <url-pattern>/delete-item-from-bucket</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>delete-order</servlet-name>
+        <servlet-class>internetshop.controllers.DeleteOrderController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>delete-order</servlet-name>
+        <url-pattern>/delete-order</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>delete-user</servlet-name>
+        <servlet-class>internetshop.controllers.DeleteUserController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>delete-user</servlet-name>
+        <url-pattern>/delete-user</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>index</servlet-name>
+        <servlet-class>internetshop.controllers.IndexController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>index</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>register</servlet-name>
+        <servlet-class>internetshop.controllers.RegistrationController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>register</servlet-name>
+        <url-pattern>/register</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>show-all-items</servlet-name>
+        <servlet-class>internetshop.controllers.ShowAllItemsController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>show-all-items</servlet-name>
+        <url-pattern>/show-all-items</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>show-all-orders</servlet-name>
+        <servlet-class>internetshop.controllers.ShowAllOrdersController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>show-all-orders</servlet-name>
+        <url-pattern>/show-all-orders</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>show-all-users</servlet-name>
+        <servlet-class>internetshop.controllers.ShowAllUsersController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>show-all-users</servlet-name>
+        <url-pattern>/show-all-users</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>show-bucket</servlet-name>
+        <servlet-class>internetshop.controllers.ShowBucketController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>show-bucket</servlet-name>
+        <url-pattern>/show-bucket</url-pattern>
+    </servlet-mapping>
+
+</web-app>

@@ -4,21 +4,21 @@ import internetshop.annotations.Inject;
 import internetshop.annotations.Service;
 import internetshop.dao.OrderDao;
 import internetshop.dao.UserDao;
-import internetshop.model.Bucket;
 import internetshop.model.Item;
 import internetshop.model.Order;
+import internetshop.service.BucketService;
 import internetshop.service.OrderService;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class OrderServiceImpl implements OrderService {
-
     @Inject
     private static OrderDao orderDao;
-
     @Inject
     private static UserDao userDao;
+    @Inject
+    private static BucketService bucketService;
 
     @Override
     public Order add(Order order) {
@@ -46,10 +46,10 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order checkout(Bucket bucket) {
-        Order order = new Order(bucket.getItems(), bucket.getUser().getUserId());
+    public Order checkout(Long bucketId, Long userId) {
+        Order order = new Order(bucketService.get(bucketId).getItems(), userId);
         orderDao.add(order);
-        userDao.get(bucket.getUser().getUserId()).getOrders().add(order);
+        userDao.get(userId).getOrders().add(order);
         List<Item> itemsCopy = new ArrayList<>(order.getItems());
         orderDao.setItems(order.getId().intValue(), itemsCopy);
         return order;

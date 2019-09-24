@@ -8,7 +8,6 @@ import java.util.NoSuchElementException;
 
 @Dao
 public class BucketDaoImpl implements BucketDao {
-
     @Override
     public Bucket create(Bucket bucket) {
         DataBase.buckets.add(bucket);
@@ -18,7 +17,7 @@ public class BucketDaoImpl implements BucketDao {
     @Override
     public Bucket get(Long id) {
         return DataBase.buckets.stream()
-                .filter(bucket -> bucket.getId().equals(id))
+                .filter(bucket -> bucket.getBucketId().equals(id))
                 .findFirst()
                 .orElseThrow(() ->
                         new NoSuchElementException("Bucket ID '" + id + "' wasn't found!"));
@@ -27,7 +26,7 @@ public class BucketDaoImpl implements BucketDao {
     @Override
     public Bucket update(Bucket bucket) {
         for (int i = 0; i < DataBase.buckets.size(); i++) {
-            if (DataBase.buckets.get(i).getId().equals(bucket.getId())) {
+            if (DataBase.buckets.get(i).getBucketId().equals(bucket.getBucketId())) {
                 DataBase.buckets.set(i, bucket);
                 return bucket;
             }
@@ -37,7 +36,7 @@ public class BucketDaoImpl implements BucketDao {
 
     @Override
     public void delete(Long id) {
-        DataBase.buckets.removeIf(bucket -> bucket.getId().equals(id));
+        DataBase.buckets.removeIf(bucket -> bucket.getBucketId().equals(id));
     }
 
     @Override

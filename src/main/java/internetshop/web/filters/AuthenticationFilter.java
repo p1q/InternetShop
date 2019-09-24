@@ -3,6 +3,8 @@ package internetshop.web.filters;
 import internetshop.annotations.Inject;
 import internetshop.model.User;
 import internetshop.service.UserService;
+import java.io.IOException;
+import java.util.Optional;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -11,8 +13,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
-import java.util.Optional;
 import org.apache.log4j.Logger;
 
 public class AuthenticationFilter implements Filter {
@@ -32,7 +32,8 @@ public class AuthenticationFilter implements Filter {
             if (cookie.getName().equals("internetshop")) {
                 Optional<User> user = userService.getByToken(cookie.getValue());
                 if (user.isPresent()) {
-                    logger.info("User " + user.get().getLogin() + " was authenticated successfully.");
+                    logger.info("User " + user.get().getLogin()
+                            + " was authenticated successfully.");
                 } else {
                     logger.info("User wasn't authenticated!");
                 }

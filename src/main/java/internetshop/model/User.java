@@ -2,7 +2,9 @@ package internetshop.model;
 
 import internetshop.service.IdGenerator;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class User {
     private Long userId;
@@ -15,6 +17,7 @@ public class User {
     private String email;
     private String phone;
     private List<Order> orders;
+    private Set<Role> roles = new HashSet<>();
 
     public User() {
         this.userId = IdGenerator.generateUserId();
@@ -103,6 +106,18 @@ public class User {
 
     public void setOrders(List<Order> orders) {
         this.orders = orders;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    public void addRole(Role role) {
+        roles.add(role);
     }
 
     @Override

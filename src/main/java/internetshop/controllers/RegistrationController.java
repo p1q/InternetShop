@@ -7,11 +7,9 @@ import internetshop.service.BucketService;
 import internetshop.service.UserService;
 import java.io.IOException;
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 public class RegistrationController extends HttpServlet {
     @Inject
@@ -41,11 +39,6 @@ public class RegistrationController extends HttpServlet {
         Bucket bucket = new Bucket();
         bucketService.create(bucket);
         user.setBucketId(bucket.getBucketId());
-
-        HttpSession session = request.getSession(true);
-        session.setAttribute("userId", user.getUserId());
-        Cookie cookie = new Cookie("internetshop", user.getToken());
-        response.addCookie(cookie);
 
         response.sendRedirect(request.getContextPath() + "/");
     }

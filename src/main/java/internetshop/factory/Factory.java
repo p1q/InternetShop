@@ -18,35 +18,52 @@ import internetshop.service.impl.OrderServiceImpl;
 import internetshop.service.impl.UserServiceImpl;
 
 public class Factory {
-    public static ItemService getItemService() {
-        return new ItemServiceImpl();
+    private static ItemDao itemDao;
+    private static ItemService itemService;
+    private static BucketDao bucketDao;
+    private static BucketService bucketService;
+    private static OrderDao orderDao;
+    private static UserDao userDao;
+    private static OrderService orderService;
+    private static UserService userService;
+
+    public static BucketDao getBucketDao() {
+        return bucketDao != null ? bucketDao :
+                (bucketDao = new BucketDaoImpl());
     }
 
     public static BucketService getBucketService() {
-        return new BucketServiceImpl();
-    }
-
-    public static UserService getUserService() {
-        return new UserServiceImpl();
-    }
-
-    public static OrderService getOrderService() {
-        return new OrderServiceImpl();
-    }
-
-    public static BucketDao getBucketDao() {
-        return new BucketDaoImpl();
+        return bucketService != null ? bucketService :
+                (bucketService = new BucketServiceImpl());
     }
 
     public static ItemDao getItemDao() {
-        return new ItemDaoImpl();
+        return itemDao != null ? itemDao :
+                (itemDao = new ItemDaoImpl());
+    }
+
+    public static ItemService getItemService() {
+        return itemService != null ? itemService :
+                (itemService = new ItemServiceImpl());
     }
 
     public static UserDao getUserDao() {
-        return new UserDaoImpl();
+        return userDao != null ? userDao :
+                (userDao = new UserDaoImpl());
     }
 
     public static OrderDao getOrderDao() {
-        return new OrderDaoImpl();
+        return orderDao != null ? orderDao :
+                (orderDao = new OrderDaoImpl());
+    }
+
+    public static OrderService getOrderService() {
+        return orderService != null ? orderService :
+                (orderService = new OrderServiceImpl());
+    }
+
+    public static UserService getUserService() {
+        return userService != null ? userService :
+                (userService = new UserServiceImpl());
     }
 }

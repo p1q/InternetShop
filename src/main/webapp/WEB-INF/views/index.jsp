@@ -12,44 +12,44 @@
     </form>
 
     <!-- Add item forward button -->
-    <form action = add-item method = "GET">
+    <form action = /user/add-item method = "GET">
       <input type = "submit" value = "Add item"/>
     </form>
 
     <!-- Add user button -->
-    <form action = add-user method = "GET">
+    <form action = /user/add-user method = "GET">
       <input type = "submit" value = "Add user"/>
     </form>
 
     <!-- Show all items button -->
-    <form action = "show-all-items" method = "GET">
+    <form action = /user/show-all-items method = "GET">
       <input type = "submit" value = "Show all items"/>
     </form>
 
     <!-- Show all users button -->
-    <form action = "show-all-users" method = "GET">
+    <form action = /user/show-all-users method = "GET">
       <input type = "submit" value = "Show all users"/>
     </form>
 
     <!-- Show bucket button -->
-    <form action = "show-bucket" method = "GET">
+    <form action = /user/show-bucket method = "GET">
       <input type = "submit" value = "Show bucket"/>
     </form>
 
     <!-- Show all orders button -->
-    <form action = "show-all-orders" method = "GET">
+    <form action = /user/show-all-orders method = "GET">
       <input type = "submit" value = "Show all orders"/>
     </form>
 
   <hr>
 
     <!-- Login button -->
-    <form action = "login" method = "GET">
+    <form action = login method = "GET">
       <input type = "submit" value = "Login"/>
     </form>
 
     <!-- User orders button -->
-    <form action = "show-user-orders" method = "GET">
+    <form action = /user/show-user-orders method = "GET">
       <input type = "submit" value = "Show user orders"/>
     </form>
 

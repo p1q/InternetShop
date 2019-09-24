@@ -25,6 +25,6 @@ public class CheckoutController extends HttpServlet {
         orderService.checkout(bucketId, userId);
         bucketService.clear(bucketService.get(bucketId));
 
-        response.sendRedirect(request.getContextPath() + "/show-all-orders");
+        response.sendRedirect(request.getContextPath() + "/user/show-all-orders");
     }
 }

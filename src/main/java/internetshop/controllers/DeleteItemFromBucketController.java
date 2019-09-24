@@ -30,6 +30,6 @@ public class DeleteItemFromBucketController extends HttpServlet {
         Bucket bucket = bucketService.get(user.getBucketId());
         bucketService.deleteItem(bucket, itemToDelete);
 
-        response.sendRedirect(request.getContextPath() + "/show-bucket");
+        response.sendRedirect(request.getContextPath() + "/user/show-bucket");
     }
 }

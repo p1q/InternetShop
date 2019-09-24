@@ -30,6 +30,6 @@ public class AddItemToBucketController extends HttpServlet {
         Bucket bucket = bucketService.get(user.getBucketId());
         bucketService.addItem(bucket, itemToAdd);
 
-        response.sendRedirect(request.getContextPath() + "/show-bucket");
+        response.sendRedirect(request.getContextPath() + "/user/show-bucket");
     }
 }

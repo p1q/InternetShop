@@ -33,6 +33,6 @@ public class AddItemController extends HttpServlet {
             logger.error(e);
         }
 
-        response.sendRedirect(request.getContextPath() + "/show-all-items");
+        response.sendRedirect(request.getContextPath() + "/user/show-all-items");
     }
 }

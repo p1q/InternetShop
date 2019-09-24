@@ -6,13 +6,14 @@ import java.util.List;
 
 public class User {
     private Long userId;
+    private Long bucketId;
     private String userName;
     private String surname;
     private String login;
     private String password;
+    private String token;
     private String email;
     private String phone;
-    private Bucket bucket;
     private List<Order> orders;
 
     public User() {
@@ -52,6 +53,10 @@ public class User {
         this.login = login;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
     public void setPassword(String password) {
         this.password = password;
     }
@@ -62,6 +67,22 @@ public class User {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public Long getBucketId() {
+        return bucketId;
+    }
+
+    public void setBucketId(Long bucketId) {
+        this.bucketId = bucketId;
     }
 
     public Long getUserId() {
@@ -84,21 +105,12 @@ public class User {
         this.orders = orders;
     }
 
-    public Bucket getBucket() {
-        return bucket;
-    }
-
-    public void setBucket(Bucket bucket) {
-        this.bucket = bucket;
-    }
-
     @Override
     public String toString() {
         return "User{"
                 + "userId=" + userId
                 + ", userName='" + userName + '\''
                 + ", orders=" + orders
-                + ", bucket=" + bucket
                 + '}';
     }
 }

@@ -11,12 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class ShowAllItemsController extends HttpServlet {
-
     @Inject
     private static ItemService itemService;
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         List<Item> items = itemService.getAll();
         request.setAttribute("items", items);

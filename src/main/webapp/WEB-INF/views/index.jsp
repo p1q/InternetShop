@@ -22,7 +22,7 @@
     </form>
 
     <!-- Show all items button -->
-    <form action = /user/show-all-items method = "GET">
+    <form action = /show-all-items method = "GET">
       <input type = "submit" value = "Show all items"/>
     </form>
 
@@ -51,6 +51,11 @@
     <!-- User orders button -->
     <form action = /user/show-user-orders method = "GET">
       <input type = "submit" value = "Show user orders"/>
+    </form>
+
+    <!-- Logout button -->
+    <form action = logout method = "GET">
+      <input type = "submit" value = "Logout"/>
     </form>
 
   </body>

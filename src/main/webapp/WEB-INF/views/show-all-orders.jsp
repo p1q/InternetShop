@@ -28,7 +28,7 @@
                 </c:forEach>
             </td>
             <td style="text-align: center;">
-                <a href="/delete-order?order_id=${order.id}">
+                <a href="/user/delete-order?order_id=${order.id}">
                     <span style="color: #ff0000;">DELETE</span></a>
             </td>
         </tr>

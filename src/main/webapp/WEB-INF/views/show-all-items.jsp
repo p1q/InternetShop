@@ -26,7 +26,7 @@
                 <c:out value="${item.price}" />
             </td>
             <td style="text-align: center;">
-                <a href="/add-item-to-bucket?item_id=${item.id}">
+                <a href="/user/add-item-to-bucket?item_id=${item.id}">
                     <span style="color: #0000ff;"><strong>ADD</strong></span></a>
             </td>
         </tr>

@@ -2,18 +2,18 @@
 <jsp:useBean id="items" scope="request" type="java.util.List<internetshop.model.Item>"/>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <html>
 <head>
-    <title>Bucket</title>
+    <title>Delete Item</title>
 </head>
 <body>
-<h3>ITEMS IN YOUR BUCKET:</h3>
+<h3>ALL ITEMS LIST:</h3>
 
 <table border="3">
 
     <tr>
-        <th>Item Name</th>
-        <th>Item Price</th>
+        <th>Name</th>
         <th><span style="color: #ff0000;"><b>DELETE ITEM</b></span></th>
     </tr>
     <c:forEach var="item" items="${items}">
@@ -21,23 +21,14 @@
             <td>
                 <c:out value="${item.name}" />
             </td>
-            <td>
-                <c:out value="${item.price}" />
-            </td>
             <td style="text-align: center;">
-                <a href="/user/delete-item-from-bucket?item_id=${item.id}">
-                    <span style="color: #ff0000;">DELETE</span></a>
+                <a href="/user/delete-item-commit?item_id=${item.id}">
+                    <span style="color: #0000ff;">DELETE</span></a>
             </td>
         </tr>
     </c:forEach>
 
 </table>
-
-<br />
-<!-- Checkout button -->
-<form action =/user/checkout method="GET">
-    <input type="submit" value="CHECKOUT"/>
-</form>
 
 <br />
 <!-- Return to main page button -->

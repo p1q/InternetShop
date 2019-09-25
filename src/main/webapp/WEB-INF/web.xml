@@ -81,6 +81,24 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>delete-item</servlet-name>
+        <servlet-class>internetshop.controllers.ShowAllItemsForAdminController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>delete-item</servlet-name>
+        <url-pattern>/user/delete-item</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>delete-item-commit</servlet-name>
+        <servlet-class>internetshop.controllers.DeleteItemController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>delete-item-commit</servlet-name>
+        <url-pattern>/user/delete-item-commit</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>delete-item-from-bucket</servlet-name>
         <servlet-class>internetshop.controllers.DeleteItemFromBucketController</servlet-class>
     </servlet>

@@ -22,8 +22,6 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
-
 public class AuthorizationFilter implements Filter {
     @Inject
     private static UserService userService;
@@ -34,6 +32,8 @@ public class AuthorizationFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         protectedAdminUrls.put("/user/add-item", ADMIN);
+        protectedAdminUrls.put("/user/delete-item", ADMIN);
+        protectedAdminUrls.put("/user/delete-item-commit", ADMIN);
         protectedAdminUrls.put("/user/added-item", ADMIN);
         protectedAdminUrls.put("/user/add-user", ADMIN);
         protectedAdminUrls.put("/user/added-user", ADMIN);

@@ -15,7 +15,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public Item create(Item item) {
-        return itemDao.add(item);
+        return itemDao.create(item);
     }
 
     @Override
@@ -36,10 +36,5 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public void delete(Long id) {
         itemDao.delete(id);
-    }
-
-    @Override
-    public void delete(Item item) {
-        itemDao.delete(item);
     }
 }

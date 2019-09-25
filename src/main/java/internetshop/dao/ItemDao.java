@@ -4,7 +4,7 @@ import internetshop.model.Item;
 import java.util.List;
 
 public interface ItemDao {
-    Item add(Item item);
+    Item create(Item item);
 
     Item get(Long id);
 
@@ -13,6 +13,4 @@ public interface ItemDao {
     Item update(Item item);
 
     void delete(Long id);
-
-    void delete(Item item);
 }

@@ -5,9 +5,9 @@ import internetshop.dao.ItemDao;
 import internetshop.dao.OrderDao;
 import internetshop.dao.UserDao;
 import internetshop.dao.impl.BucketDaoImpl;
-import internetshop.dao.impl.ItemDaoImpl;
 import internetshop.dao.impl.OrderDaoImpl;
 import internetshop.dao.impl.UserDaoImpl;
+import internetshop.dao.jdbc.ItemDaoJdbcImpl;
 import internetshop.service.BucketService;
 import internetshop.service.ItemService;
 import internetshop.service.OrderService;
@@ -16,8 +16,18 @@ import internetshop.service.impl.BucketServiceImpl;
 import internetshop.service.impl.ItemServiceImpl;
 import internetshop.service.impl.OrderServiceImpl;
 import internetshop.service.impl.UserServiceImpl;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import org.apache.log4j.Logger;
 
 public class Factory {
+    private static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
+    private static final String DATABASE_URL = "jdbc:mysql://192.168.1.34";
+    private static final String USER = "adm";
+    private static final String PASSWORD = "qwerty";
+    private static final Logger LOGGER = Logger.getLogger(Factory.class);
+
     private static ItemDao itemDao;
     private static ItemService itemService;
     private static BucketDao bucketDao;
@@ -26,6 +36,18 @@ public class Factory {
     private static UserDao userDao;
     private static OrderService orderService;
     private static UserService userService;
+    private static Connection connection;
+
+    static {
+        try {
+            LOGGER.info("Connecting to the database...");
+            Class.forName(JDBC_DRIVER);
+            connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);;
+            LOGGER.info("Connection to the database was established successfully!");
+        } catch (ClassNotFoundException | SQLException e) {
+            LOGGER.error(e);
+        }
+    }
 
     public static BucketDao getBucketDao() {
         return bucketDao != null ? bucketDao :
@@ -39,7 +61,7 @@ public class Factory {
 
     public static ItemDao getItemDao() {
         return itemDao != null ? itemDao :
-                (itemDao = new ItemDaoImpl());
+                (itemDao = new ItemDaoJdbcImpl(connection));
     }
 
     public static ItemService getItemService() {

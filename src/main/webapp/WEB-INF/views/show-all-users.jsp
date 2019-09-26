@@ -43,7 +43,7 @@
                 <c:out value="${user.login}" />
             </td>
             <td style="text-align: center;">
-                <a href="/delete-user?user_id=${user.userId}">
+                <a href="/user/delete-user?user_id=${user.userId}">
                     <span style="color: #ff0000;">DELETE</span></a>
             </td>
         </tr>

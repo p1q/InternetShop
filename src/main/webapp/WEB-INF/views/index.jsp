@@ -11,9 +11,14 @@
       <input type = "submit" value = "Register"/>
     </form>
 
-    <!-- Add item forward button -->
+    <!-- Add item button -->
     <form action = /user/add-item method = "GET">
       <input type = "submit" value = "Add item"/>
+    </form>
+
+    <!-- Delete item button -->
+    <form action = /user/delete-item method = "GET">
+      <input type = "submit" value = "Delete item"/>
     </form>
 
     <!-- Add user button -->

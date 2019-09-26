@@ -36,7 +36,7 @@ public class ItemDaoJdbcImpl extends AbstractDao<Item> implements ItemDao {
 
     @Override
     public Item get(Long id) {
-        String query = String.format("SELECT * FROM %s.items where item_id = %d;", DB_NAME, id);
+        String query = String.format("SELECT * FROM %s.items WHERE item_id = %d;", DB_NAME, id);
         try (Statement statement = connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery(query);
             long itemId = resultSet.getLong("item_id");
@@ -83,7 +83,7 @@ public class ItemDaoJdbcImpl extends AbstractDao<Item> implements ItemDao {
 
     @Override
     public void delete(Long id) {
-        String query = String.format("DELETE FROM %s.items where item_id = %d;", DB_NAME, id);
+        String query = String.format("DELETE FROM %s.items WHERE item_id = %d;", DB_NAME, id);
         try (Statement statement = connection.createStatement()) {
             statement.executeUpdate(query);
         } catch (SQLException e) {

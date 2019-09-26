@@ -5,7 +5,6 @@ import internetshop.dao.ItemDao;
 import internetshop.dao.OrderDao;
 import internetshop.dao.UserDao;
 import internetshop.dao.impl.BucketDaoImpl;
-import internetshop.dao.impl.ItemDaoImpl;
 import internetshop.dao.impl.OrderDaoImpl;
 import internetshop.dao.impl.UserDaoImpl;
 import internetshop.dao.jdbc.ItemDaoJdbcImpl;

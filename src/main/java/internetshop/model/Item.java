@@ -1,7 +1,5 @@
 package internetshop.model;
 
-import internetshop.service.IdGenerator;
-
 public class Item {
     private Long itemId;
     private String name;
@@ -14,7 +12,6 @@ public class Item {
     }
 
     public Item(String name, Double price) {
-        this.itemId = IdGenerator.generateItemId();
         this.name = name;
         this.price = price;
     }

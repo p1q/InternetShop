@@ -4,9 +4,9 @@ import internetshop.dao.BucketDao;
 import internetshop.dao.ItemDao;
 import internetshop.dao.OrderDao;
 import internetshop.dao.UserDao;
-import internetshop.dao.impl.BucketDaoImpl;
-import internetshop.dao.impl.OrderDaoImpl;
-import internetshop.dao.impl.UserDaoImpl;
+import internetshop.dao.jdbc.BucketDaoJdbcImpl;
+import internetshop.dao.jdbc.OrderDaoJdbcImpl;
+import internetshop.dao.jdbc.UserDaoJdbcImpl;
 import internetshop.dao.jdbc.ItemDaoJdbcImpl;
 import internetshop.service.BucketService;
 import internetshop.service.ItemService;
@@ -23,7 +23,9 @@ import org.apache.log4j.Logger;
 
 public class Factory {
     private static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
-    private static final String DATABASE_URL = "jdbc:mysql://192.168.1.34";
+    private static final String DATABASE_NAME = "internetshop";
+    private static final String DATABASE_URL = "jdbc:mysql://192.168.1.34/"
+            + DATABASE_NAME + "?allowMultiQueries=true";
     private static final String USER = "adm";
     private static final String PASSWORD = "qwerty";
     private static final Logger LOGGER = Logger.getLogger(Factory.class);
@@ -51,7 +53,7 @@ public class Factory {
 
     public static BucketDao getBucketDao() {
         return bucketDao != null ? bucketDao :
-                (bucketDao = new BucketDaoImpl());
+                (bucketDao = new BucketDaoJdbcImpl(connection));
     }
 
     public static BucketService getBucketService() {
@@ -71,12 +73,12 @@ public class Factory {
 
     public static UserDao getUserDao() {
         return userDao != null ? userDao :
-                (userDao = new UserDaoImpl());
+                (userDao = new UserDaoJdbcImpl(connection));
     }
 
     public static OrderDao getOrderDao() {
         return orderDao != null ? orderDao :
-                (orderDao = new OrderDaoImpl());
+                (orderDao = new OrderDaoJdbcImpl(connection));
     }
 
     public static OrderService getOrderService() {

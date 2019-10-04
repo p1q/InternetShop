@@ -9,15 +9,15 @@ public interface BucketService {
 
     Bucket create(Bucket bucket);
 
-    Bucket addItem(Bucket bucket, Item item);
+    void addItem(Bucket bucket, Item item);
 
-    Bucket deleteItem(Bucket bucket, Item item);
+    void deleteItem(Long bucketId, Long itemId);
 
-    Bucket get(Long id);
+    Bucket get(Long bucketId);
 
-    Bucket update(Bucket bucket);
+    Bucket getByUserId(Long userId);
 
-    void delete(Long id);
+    void delete(Long userId);
 
-    Bucket clear(Bucket bucket);
+    void clear(Long bucketId);
 }

@@ -1,13 +1,16 @@
 package internetshop.model;
 
-import internetshop.service.IdGenerator;
-
 public class Role {
-    private final Long roleId;
+    private Long roleId;
     private RoleName roleName;
 
-    public Role() {
-        this.roleId = IdGenerator.generateRoleId();
+    public Role(Long roleId, String roleName) {
+        this.roleId = roleId;
+        try {
+            this.roleName = RoleName.valueOf(roleName);
+        } catch (IllegalArgumentException e) {
+            this.roleName = RoleName.USER;
+        }
     }
 
     public Long getRoleId() {
@@ -18,20 +21,11 @@ public class Role {
         return roleName;
     }
 
-    public static Role of(String roleName) {
-        return new Role(RoleName.valueOf(roleName));
-    }
-
-    public Role(RoleName roleName) {
-        this();
-        this.roleName = roleName;
-    }
-
     public void setRoleName(RoleName roleName) {
         this.roleName = roleName;
     }
 
     public enum RoleName {
-        USER, ADMIN
+        USER, ADMIN, MANAGER
     }
 }

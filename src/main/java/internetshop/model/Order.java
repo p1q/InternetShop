@@ -1,6 +1,5 @@
 package internetshop.model;
 
-import internetshop.service.IdGenerator;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,12 +25,10 @@ public class Order {
     }
 
     public Order() {
-        this.orderId = IdGenerator.generateOrderId();
         items = new ArrayList<>();
     }
 
     public Order(List<Item> items, Long userId) {
-        this.orderId = IdGenerator.generateOrderId();
         this.items = items;
         this.userId = userId;
     }

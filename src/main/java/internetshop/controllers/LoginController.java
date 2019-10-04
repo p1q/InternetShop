@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 
 public class LoginController extends HttpServlet {
-    private static final Logger logger = Logger.getLogger(LoginController.class);
+    private static final Logger LOGGER = Logger.getLogger(LoginController.class);
     @Inject
     private static UserService userService;
 
@@ -38,11 +38,11 @@ public class LoginController extends HttpServlet {
             session.setAttribute("userId", user.getUserId());
             Cookie cookie = new Cookie("internetshop", user.getToken());
             response.addCookie(cookie);
-            logger.info("Successful login by user" + user);
+            LOGGER.info("Successful login by user" + user);
             response.sendRedirect(request.getContextPath() + "/");
         } catch (internetshop.exceptions.AuthenticationException e) {
             request.setAttribute("errorMsg", "Invalid login or password!");
-            logger.error(e);
+            LOGGER.error(e);
             request.setAttribute("loginValue", login);
             request.setAttribute("passwordValue", password);
             request.getRequestDispatcher("/WEB-INF/views/login.jsp")

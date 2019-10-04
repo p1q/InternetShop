@@ -82,7 +82,7 @@ public class OrderDaoJdbcImpl extends AbstractDao<Item> implements OrderDao {
         return order;
     }
 
-    private List<Item> getAllItems (Long orderId) {
+    private List<Item> getAllItems(Long orderId) {
         List<Item> items = new ArrayList<>();
         String query = "SELECT item_id FROM orders_items WHERE order_id = ?;";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -100,7 +100,7 @@ public class OrderDaoJdbcImpl extends AbstractDao<Item> implements OrderDao {
     }
 
     @Override
-    public List getAllOrders () {
+    public List getAllOrders() {
         List<Order> orders = new ArrayList<>();
         String query = "SELECT order_id FROM orders;";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -117,7 +117,7 @@ public class OrderDaoJdbcImpl extends AbstractDao<Item> implements OrderDao {
     }
 
     @Override
-    public void delete (Long orderId) {
+    public void delete(Long orderId) {
         String query = "DELETE FROM orders WHERE order_id = ?;";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setLong(1, orderId);

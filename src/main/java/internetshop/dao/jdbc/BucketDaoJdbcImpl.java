@@ -65,8 +65,8 @@ public class BucketDaoJdbcImpl extends AbstractDao<Bucket> implements BucketDao 
     @Override
     public List getAllItems(Long bucketId) {
         List<Item> items = new ArrayList<>();
-        String query = "SELECT * FROM items INNER JOIN buckets_items ON bucket_id=?" +
-                " AND items.item_id=buckets_items.item_id;";
+        String query = "SELECT * FROM items INNER JOIN buckets_items ON bucket_id=?"
+                + " AND items.item_id=buckets_items.item_id;";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setLong(1, bucketId);
             ResultSet resultSet = preparedStatement.executeQuery();

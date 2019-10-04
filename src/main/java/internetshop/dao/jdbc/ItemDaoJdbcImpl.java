@@ -54,7 +54,7 @@ public class ItemDaoJdbcImpl extends AbstractDao<Item> implements ItemDao {
         List<Item> items = new ArrayList<>();
         String query = "SELECT * FROM items";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query);
-             ResultSet resultSet = preparedStatement.executeQuery()) {
+                ResultSet resultSet = preparedStatement.executeQuery()) {
             while (resultSet.next()) {
                 long itemId = resultSet.getLong("item_id");
                 String name = resultSet.getString("name");

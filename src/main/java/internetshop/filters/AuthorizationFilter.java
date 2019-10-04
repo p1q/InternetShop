@@ -38,11 +38,11 @@ public class AuthorizationFilter implements Filter {
         protectedAdminUrls.put("/user/delete-user", ADMIN);
         protectedAdminUrls.put("/user/show-all-users", ADMIN);
         protectedUserUrls.put("/user/show-all-orders", ADMIN);
+        protectedUserUrls.put("/user/delete-order", ADMIN);
 
         protectedUserUrls.put("/user/add-item-to-bucket", USER);
         protectedUserUrls.put("/user/checkout", USER);
         protectedUserUrls.put("/user/delete-item-from-bucket", USER);
-        protectedUserUrls.put("/user/delete-order", USER);
         protectedUserUrls.put("/user/show-bucket", USER);
         protectedUserUrls.put("/user/show-user-orders", USER);
     }

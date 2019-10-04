@@ -2,7 +2,6 @@ package internetshop.service.impl;
 
 import internetshop.annotations.Inject;
 import internetshop.annotations.Service;
-import internetshop.dao.BucketDao;
 import internetshop.dao.UserDao;
 import internetshop.exceptions.AuthenticationException;
 import internetshop.model.User;
@@ -13,27 +12,18 @@ import java.util.UUID;
 
 @Service
 public class UserServiceImpl implements UserService {
-
     @Inject
     private static UserDao userDao;
 
-    @Inject
-    private static BucketDao bucketDao;
-
-    @Override
-    public List getOrders(User user) {
-        return userDao.get(user.getUserId()).getOrders();
-    }
-
     @Override
     public List<User> getAll() {
-        return userDao.getAll();
+        return userDao.getAllUsers();
     }
 
     @Override
     public User create(User user) {
         user.setToken(getToken());
-        return userDao.add(user);
+        return userDao.create(user);
     }
 
     @Override
@@ -49,6 +39,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public void delete(Long id) {
         userDao.delete(id);
+    }
+
+    @Override
+    public boolean isLoginExists(String login) {
+        return userDao.isLoginExists(login);
     }
 
     @Override

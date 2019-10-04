@@ -9,7 +9,6 @@ import java.util.List;
 
 @Service
 public class ItemServiceImpl implements ItemService {
-
     @Inject
     private static ItemDao itemDao;
 

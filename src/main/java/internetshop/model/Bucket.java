@@ -1,15 +1,14 @@
 package internetshop.model;
 
-import internetshop.service.IdGenerator;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Bucket {
     private Long bucketId;
+    private Long userId;
     private List<Item> items;
 
     public Bucket() {
-        this.bucketId = IdGenerator.generateBucketId();
         items = new ArrayList<>();
     }
 
@@ -19,6 +18,14 @@ public class Bucket {
 
     public void setBucketId(Long bucketId) {
         this.bucketId = bucketId;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public List<Item> getItems() {

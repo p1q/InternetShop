@@ -5,6 +5,7 @@
 </head>
 <body>
 
+<div>${errorMsg}</div>
 <form action="register" method="POST">
     <div class="container">
         <h1>Register</h1>

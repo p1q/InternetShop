@@ -54,24 +54,6 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>add-user</servlet-name>
-        <servlet-class>internetshop.controllers.AddUserController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>add-user</servlet-name>
-        <url-pattern>/user/add-user</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>added-user</servlet-name>
-        <servlet-class>internetshop.controllers.AddUserController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>added-user</servlet-name>
-        <url-pattern>/user/added-user</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
         <servlet-name>checkout</servlet-name>
         <servlet-class>internetshop.controllers.CheckoutController</servlet-class>
     </servlet>

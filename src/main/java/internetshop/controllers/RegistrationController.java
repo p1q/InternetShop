@@ -28,27 +28,27 @@ public class RegistrationController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-            try {
-                if (userService.isLoginExists(request.getParameter("login"))) {
-                    throw new LoginAlreadyExistsException("Login already exists!");
-                }
-                if (!(request.getParameter("password"))
-                        .equals((request.getParameter("password-repeat")))) {
-                    throw new PasswordsDontMatchException("Passwords don't match!");
-                }
-            } catch (LoginAlreadyExistsException e) {
-                request.setAttribute("errorMsg", "Login already exists!");
-                LOGGER.error(e);
-                request.getRequestDispatcher("/WEB-INF/views/register.jsp")
-                        .forward(request, response);
-                return;
-            } catch (PasswordsDontMatchException e) {
-                request.setAttribute("errorMsg", "Passwords don't match!");
-                LOGGER.error(e);
-                request.getRequestDispatcher("/WEB-INF/views/register.jsp")
-                        .forward(request, response);
-                return;
+        try {
+            if (userService.isLoginExists(request.getParameter("login"))) {
+                throw new LoginAlreadyExistsException("Login already exists!");
             }
+            if (!(request.getParameter("password"))
+                    .equals((request.getParameter("password-repeat")))) {
+                throw new PasswordsDontMatchException("Passwords don't match!");
+            }
+        } catch (LoginAlreadyExistsException e) {
+            request.setAttribute("errorMsg", "Login already exists!");
+            LOGGER.error(e);
+            request.getRequestDispatcher("/WEB-INF/views/register.jsp")
+                    .forward(request, response);
+            return;
+        } catch (PasswordsDontMatchException e) {
+            request.setAttribute("errorMsg", "Passwords don't match!");
+            LOGGER.error(e);
+            request.getRequestDispatcher("/WEB-INF/views/register.jsp")
+                    .forward(request, response);
+            return;
+        }
 
         User user = new User();
         user.setUserName(request.getParameter("username"));

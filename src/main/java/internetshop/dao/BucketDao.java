@@ -12,7 +12,7 @@ public interface BucketDao {
 
     Bucket getByUserId(Long userId);
 
-    void addItem (Long bucketId, Long itemId);
+    void addItem(Long bucketId, Long itemId);
 
     void deleteItem(Long bucketId, Long itemId);
 

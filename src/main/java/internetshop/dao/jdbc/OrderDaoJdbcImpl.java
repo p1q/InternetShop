@@ -17,7 +17,7 @@ import org.apache.log4j.Logger;
 
 @Dao
 public class OrderDaoJdbcImpl extends AbstractDao<Item> implements OrderDao {
-    private static final Logger LOGGER = Logger.getLogger(UserDaoJdbcImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(OrderDaoJdbcImpl.class);
 
     @Inject
     private static ItemService itemService;

@@ -5,6 +5,7 @@ import internetshop.exceptions.LoginAlreadyExistsException;
 import internetshop.exceptions.PasswordsDontMatchException;
 import internetshop.model.User;
 import internetshop.service.UserService;
+import internetshop.util.HashUtil;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -56,8 +57,9 @@ public class RegistrationController extends HttpServlet {
         user.setEmail((request.getParameter("email")));
         user.setPhone((request.getParameter("phone")));
         user.setLogin((request.getParameter("login")));
-        user.setPassword((request.getParameter("password")));
-        user.setPassword((request.getParameter("password-repeat")));
+        user.setSalt(HashUtil.getSalt());
+        String password = request.getParameter("password");
+        user.setPassword(HashUtil.hashPassword(password, user.getSalt()));
         userService.create(user);
 
         request.setAttribute("registrationFinished", "Registration completed successfully!");

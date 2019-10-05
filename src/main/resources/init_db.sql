@@ -17,10 +17,11 @@ CREATE TABLE IF NOT EXISTS users (
                                      email varchar(50) DEFAULT NULL,
                                      phone varchar(20) DEFAULT NULL,
                                      token varchar(255) DEFAULT NULL,
+                                     salt blob NOT NULL,
                                      PRIMARY KEY (user_id)
 )
     ENGINE = INNODB,
-    AUTO_INCREMENT = 52,
+    AUTO_INCREMENT = 62,
     AVG_ROW_LENGTH = 5461,
     CHARACTER SET utf8,
     COLLATE utf8_general_ci;
@@ -32,7 +33,7 @@ CREATE TABLE IF NOT EXISTS orders (
 )
     ENGINE = INNODB,
     AUTO_INCREMENT = 7,
-    AVG_ROW_LENGTH = 2730,
+    AVG_ROW_LENGTH = 8192,
     CHARACTER SET utf8,
     COLLATE utf8_general_ci;
 
@@ -49,8 +50,8 @@ CREATE TABLE IF NOT EXISTS buckets (
                                        PRIMARY KEY (bucket_id, user_id)
 )
     ENGINE = INNODB,
-    AUTO_INCREMENT = 7,
-    AVG_ROW_LENGTH = 4096,
+    AUTO_INCREMENT = 17,
+    AVG_ROW_LENGTH = 5461,
     CHARACTER SET utf8,
     COLLATE utf8_general_ci;
 
@@ -147,12 +148,68 @@ ALTER TABLE buckets_items
     ADD CONSTRAINT items_fk FOREIGN KEY (item_id)
         REFERENCES items (item_id) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
+CREATE USER IF NOT EXISTS 'adm'@'%' IDENTIFIED WITH mysql_native_password PASSWORD EXPIRE NEVER;
+
+
+
+CREATE USER IF NOT EXISTS 'adm'@'192.168.1.34' IDENTIFIED WITH mysql_native_password PASSWORD EXPIRE DEFAULT;
+GRANT Select, Insert, Update, Delete, Create, Drop, References, Index, Alter, Create Temporary Tables, Lock Tables, Create View, Show View, Create Routine, Alter Routine, Execute, Event, Trigger ON  internetshop.* TO 'adm'@'192.168.1.34';
+
+
+
+CREATE USER IF NOT EXISTS 'adm'@'192.168.1.51' IDENTIFIED WITH mysql_native_password PASSWORD EXPIRE DEFAULT;
+GRANT Select, Insert, Update, Delete, Create, Drop, References, Index, Alter, Create Temporary Tables, Lock Tables, Create View, Show View, Create Routine, Alter Routine, Execute, Event, Trigger ON  internetshop.* TO 'adm'@'192.168.1.51';
+
+
+
+CREATE USER IF NOT EXISTS 'mysql.session'@'localhost' IDENTIFIED WITH mysql_native_password PASSWORD EXPIRE ACCOUNT LOCK;
+GRANT Super ON *.* TO 'mysql.session'@'localhost';
+GRANT Select ON  performance_schema.* TO 'mysql.session'@'localhost';
+GRANT Select ON TABLE mysql.user TO 'mysql.session'@'localhost';
+
+
+
+CREATE USER IF NOT EXISTS 'mysql.sys'@'localhost' IDENTIFIED WITH mysql_native_password PASSWORD EXPIRE ACCOUNT LOCK;
+GRANT Trigger ON  sys.* TO 'mysql.sys'@'localhost';
+GRANT Select ON TABLE sys.sys_config TO 'mysql.sys'@'localhost';
+
+
+
+CREATE USER IF NOT EXISTS 'root'@'%' IDENTIFIED WITH mysql_native_password PASSWORD EXPIRE NEVER;
+GRANT Usage ON *.* TO 'root'@'%'
+    WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%';
+GRANT Select, Insert, Update, Delete, Create, Drop, Grant Option, References, Index, Alter, Create Temporary Tables, Lock Tables, Create View, Show View, Create Routine, Alter Routine, Execute, Event, Trigger ON  internetshop.* TO 'root'@'%';
+
+
+
+CREATE USER IF NOT EXISTS 'root'@'192.168.1.51' IDENTIFIED WITH mysql_native_password PASSWORD EXPIRE DEFAULT;
+GRANT Usage ON *.* TO 'root'@'192.168.1.51'
+    WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'192.168.1.51';
+GRANT Select, Insert, Update, Delete, Create, Drop, Grant Option, References, Index, Alter, Create Temporary Tables, Lock Tables, Create View, Show View, Create Routine, Alter Routine, Execute, Event, Trigger ON  internetshop.* TO 'root'@'192.168.1.51';
+
+
+
+CREATE USER IF NOT EXISTS 'root'@'localhost' IDENTIFIED WITH mysql_native_password PASSWORD EXPIRE DEFAULT;
+GRANT Usage ON *.* TO 'root'@'localhost'
+    WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost';
+GRANT PROXY ON ''@'' TO 'root'@'localhost' WITH GRANT OPTION;
+
+
+
+CREATE USER IF NOT EXISTS 'task'@'%' IDENTIFIED WITH mysql_native_password PASSWORD EXPIRE DEFAULT;
+GRANT Select, Insert, Update, Delete, Create, Drop, References, Index, Alter, Create Temporary Tables, Lock Tables, Create View, Show View, Create Routine, Alter Routine, Execute, Event, Trigger ON  task.* TO 'task'@'%';
+
+
+
 
 BEGIN;
-INSERT INTO users(user_id, name, surname, login, password, email, phone, token) VALUES
-(1, 'Admin', 'ADMIN', 'admin', '1', 'admin@gmail.com', '0675478593', 'c8cce9e7-f365-49c9-b3bb-0eefcebf10eb'),
-(2, 'User', 'USER', 'user', '1', 'user@mail.com', '0685470547', '8838c80b-edbc-48c0-b36d-5c853df69714'),
-(3, 'Victor', 'Petroff', 'victor', '1', 'victor@gmail.com', '0985475501', '9e51f710-8771-4b28-9f95-7f55ade88489');
+INSERT INTO users(user_id, name, surname, login, password, email, phone, token, salt) VALUES
+(1, 'Admin', 'ADMIN', 'admin', '2206047770cd51a3fd79582a424901fae113783d706e013ec9276a1070f1a7556c39ab311b5fe058be559466bd0dc35bf4d490d2f99c28c083427f3e3fc55749', 'admin@gmail.com', '0675478593', 'c8cce9e7-f365-49c9-b3bb-0eefcebf10eb', x''),
+(2, 'User', 'USER', 'user', '2206047770cd51a3fd79582a424901fae113783d706e013ec9276a1070f1a7556c39ab311b5fe058be559466bd0dc35bf4d490d2f99c28c083427f3e3fc55749', 'user@mail.com', '0685470547', '8838c80b-edbc-48c0-b36d-5c853df69714', x''),
+(3, 'Victor', 'Petroff', 'victor', '2206047770cd51a3fd79582a424901fae113783d706e013ec9276a1070f1a7556c39ab311b5fe058be559466bd0dc35bf4d490d2f99c28c083427f3e3fc557491', 'victor@gmail.com', '0985475501', '9e51f710-8771-4b28-9f95-7f55ade88489', x'');
 COMMIT;
 
 
@@ -167,10 +224,6 @@ COMMIT;
 BEGIN;
 INSERT INTO orders(order_id, user_id) VALUES
 (1, 2),
-(2, 2),
-(3, 2),
-(4, 2),
-(5, 2),
 (6, 2);
 COMMIT;
 

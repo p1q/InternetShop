@@ -8,6 +8,8 @@ import internetshop.model.Bucket;
 import internetshop.model.Role;
 import internetshop.model.User;
 import internetshop.service.BucketService;
+import internetshop.util.HashUtil;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -33,8 +35,8 @@ public class UserDaoJdbcImpl extends AbstractDao<User> implements UserDao {
 
     @Override
     public User create(User user) {
-        String query = "INSERT INTO users (name, surname, login, password, email, phone, token)"
-                + " VALUES (?, ?, ?, ?, ?, ?, ?);";
+        String query = "INSERT INTO users (name, surname, login, password, email, phone, token,"
+                + " salt) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
         long userRoleId = 0;
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(query,
@@ -46,6 +48,9 @@ public class UserDaoJdbcImpl extends AbstractDao<User> implements UserDao {
             preparedStatement.setString(5, user.getEmail());
             preparedStatement.setString(6, user.getPhone());
             preparedStatement.setString(7, user.getToken());
+            Blob salt = new javax.sql.rowset.serial.SerialBlob(user.getSalt());
+            preparedStatement.setBlob(8, salt);
+            salt.free();
 
             int affectedRows = preparedStatement.executeUpdate();
             if (affectedRows == 0) {
@@ -110,6 +115,9 @@ public class UserDaoJdbcImpl extends AbstractDao<User> implements UserDao {
         user.setEmail(resultSet.getString("email"));
         user.setPhone(resultSet.getString("phone"));
         user.setToken(resultSet.getString("token"));
+        Blob salt = resultSet.getBlob("salt");
+        user.setSalt(salt.getBytes(1, (int) salt.length()));
+        salt.free();
         user.setRoles(getUserRoles(user.getUserId()));
         return user;
     }
@@ -151,7 +159,7 @@ public class UserDaoJdbcImpl extends AbstractDao<User> implements UserDao {
     @Override
     public User update(User user) {
         String query = "UPDATE users SET name = ?, surname = ?, login = ?, password = ?,"
-                + " email = ?, phone = ?, token = ? WHERE user_id = ?;";
+                + " email = ?, phone = ?, token = ?, salt = ? WHERE user_id = ?;";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, user.getUserName());
             preparedStatement.setString(2, user.getSurname());
@@ -160,7 +168,10 @@ public class UserDaoJdbcImpl extends AbstractDao<User> implements UserDao {
             preparedStatement.setString(5, user.getEmail());
             preparedStatement.setString(6, user.getPhone());
             preparedStatement.setString(7, user.getToken());
-            preparedStatement.setLong(8, user.getUserId());
+            Blob salt = new javax.sql.rowset.serial.SerialBlob(user.getSalt());
+            preparedStatement.setBlob(8, salt);
+            salt.free();
+            preparedStatement.setLong(9, user.getUserId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error(e);
@@ -193,12 +204,15 @@ public class UserDaoJdbcImpl extends AbstractDao<User> implements UserDao {
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 Long userId = resultSet.getLong("user_id");
+                resultSet.close();
                 User user = get(userId);
-                if (user.getPassword().equals(password)) {
-                    resultSet.close();
+                String registeredUserHash = user.getPassword();
+                String loginUserHash = HashUtil.hashPassword(password, user.getSalt());
+                if (registeredUserHash.equals(loginUserHash)) {
                     return user;
                 }
             }
+            resultSet.close();
             throw new AuthenticationException("Invalid login or password");
         } catch (SQLException e) {
             LOGGER.error(e);

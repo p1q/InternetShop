@@ -9,6 +9,7 @@ public class User {
     private String surname;
     private String login;
     private String password;
+    private byte[] salt;
     private String email;
     private String phone;
     private String token;
@@ -95,5 +96,13 @@ public class User {
 
     public void addRole(Role role) {
         this.roles.add(role);
+    }
+
+    public byte[] getSalt() {
+        return salt;
+    }
+
+    public void setSalt(byte[] salt) {
+        this.salt = salt;
     }
 }

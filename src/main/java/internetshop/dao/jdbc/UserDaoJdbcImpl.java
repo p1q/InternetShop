@@ -9,7 +9,6 @@ import internetshop.model.Role;
 import internetshop.model.User;
 import internetshop.service.BucketService;
 import internetshop.util.HashUtil;
-import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -48,14 +47,12 @@ public class UserDaoJdbcImpl extends AbstractDao<User> implements UserDao {
             preparedStatement.setString(5, user.getEmail());
             preparedStatement.setString(6, user.getPhone());
             preparedStatement.setString(7, user.getToken());
-            Blob salt = new javax.sql.rowset.serial.SerialBlob(user.getSalt());
-            preparedStatement.setBlob(8, salt);
-            salt.free();
+            preparedStatement.setBytes(8, user.getSalt());
 
             int affectedRows = preparedStatement.executeUpdate();
             if (affectedRows == 0) {
                 LOGGER.error("Failed to create the user.");
-                throw new SQLException("Failed to create the user");
+                throw new SQLException("Failed to create the user.");
             }
 
             try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
@@ -115,9 +112,7 @@ public class UserDaoJdbcImpl extends AbstractDao<User> implements UserDao {
         user.setEmail(resultSet.getString("email"));
         user.setPhone(resultSet.getString("phone"));
         user.setToken(resultSet.getString("token"));
-        Blob salt = resultSet.getBlob("salt");
-        user.setSalt(salt.getBytes(1, (int) salt.length()));
-        salt.free();
+        user.setSalt(resultSet.getBytes("salt"));
         user.setRoles(getUserRoles(user.getUserId()));
         return user;
     }
@@ -168,9 +163,7 @@ public class UserDaoJdbcImpl extends AbstractDao<User> implements UserDao {
             preparedStatement.setString(5, user.getEmail());
             preparedStatement.setString(6, user.getPhone());
             preparedStatement.setString(7, user.getToken());
-            Blob salt = new javax.sql.rowset.serial.SerialBlob(user.getSalt());
-            preparedStatement.setBlob(8, salt);
-            salt.free();
+            preparedStatement.setBytes(8, user.getSalt());
             preparedStatement.setLong(9, user.getUserId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {

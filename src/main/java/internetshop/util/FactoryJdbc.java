@@ -1,4 +1,4 @@
-package internetshop.factory;
+package internetshop.util;
 
 import internetshop.dao.BucketDao;
 import internetshop.dao.ItemDao;
@@ -21,7 +21,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import org.apache.log4j.Logger;
 
-public class Factory {
+public class FactoryJdbc {
     private static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
     private static final String DATABASE_NAME = "internetshop";
     private static final String DATABASE_URL = "jdbc:mysql://192.168.1.34/"
@@ -44,7 +44,7 @@ public class Factory {
         try {
             LOGGER.info("Connecting to the database...");
             Class.forName(JDBC_DRIVER);
-            connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);;
+            connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
             LOGGER.info("Connection to the database was established successfully!");
         } catch (ClassNotFoundException | SQLException e) {
             LOGGER.error(e);

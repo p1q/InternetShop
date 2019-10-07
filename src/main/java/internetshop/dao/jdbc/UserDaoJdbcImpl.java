@@ -52,7 +52,7 @@ public class UserDaoJdbcImpl extends AbstractDao<User> implements UserDao {
             int affectedRows = preparedStatement.executeUpdate();
             if (affectedRows == 0) {
                 LOGGER.error("Failed to create the user.");
-                throw new SQLException("Failed to create the user");
+                throw new SQLException("Failed to create the user.");
             }
 
             try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
@@ -141,7 +141,7 @@ public class UserDaoJdbcImpl extends AbstractDao<User> implements UserDao {
         List<User> users = new ArrayList<>();
         String query = "SELECT * FROM users";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query);
-                ResultSet resultSet = preparedStatement.executeQuery()) {
+             ResultSet resultSet = preparedStatement.executeQuery()) {
             while (resultSet.next()) {
                 users.add(getUserFromResultSet(resultSet));
             }

@@ -89,15 +89,15 @@ public class UserDaoJdbcImpl extends AbstractDao<User> implements UserDao {
     }
 
     @Override
-    public User get(Long id) {
+    public User get(Long userId) {
         String query = "SELECT * FROM users WHERE user_id = ?;";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setLong(1, id);
+            preparedStatement.setLong(1, userId);
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
             return getUserFromResultSet(resultSet);
         } catch (SQLException e) {
-            LOGGER.error("Failed to get user with id" + id);
+            LOGGER.error("Failed to get user with ID: " + userId);
         }
         return null;
     }

@@ -141,7 +141,7 @@ public class UserDaoJdbcImpl extends AbstractDao<User> implements UserDao {
         List<User> users = new ArrayList<>();
         String query = "SELECT * FROM users";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query);
-             ResultSet resultSet = preparedStatement.executeQuery()) {
+                ResultSet resultSet = preparedStatement.executeQuery()) {
             while (resultSet.next()) {
                 users.add(getUserFromResultSet(resultSet));
             }

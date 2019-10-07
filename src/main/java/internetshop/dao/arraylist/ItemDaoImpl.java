@@ -1,9 +1,10 @@
-package internetshop.dao.impl;
+package internetshop.dao.arraylist;
 
+import internetshop.annotations.Dao;
 import internetshop.dao.ItemDao;
 import internetshop.database.DataBase;
-import internetshop.lib.Dao;
 import internetshop.model.Item;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Dao
@@ -25,17 +26,16 @@ public class ItemDaoImpl implements ItemDao {
     }
 
     @Override
+    public List getAll() {
+        return null;
+    }
+
+    @Override
     public Item update(Item itemToUpdate) {
         Item item = get(itemToUpdate.getId());
         item.setName(itemToUpdate.getName());
         item.setPrice(itemToUpdate.getPrice());
         return item;
-    }
-
-    @Override
-    public void delete(Long id) {
-        DataBase.items
-                .removeIf(item -> item.getId().equals(id));
     }
 
     @Override

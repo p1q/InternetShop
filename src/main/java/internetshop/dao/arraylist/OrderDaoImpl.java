@@ -1,16 +1,17 @@
-package internetshop.dao.impl;
+package internetshop.dao.arraylist;
 
+import internetshop.annotations.Dao;
 import internetshop.dao.OrderDao;
 import internetshop.database.DataBase;
-import internetshop.lib.Dao;
 import internetshop.model.Order;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Dao
 public class OrderDaoImpl implements OrderDao {
 
     @Override
-    public Order add(Order order) {
+    public Order create(Order order) {
         DataBase.orders.add(order);
         return order;
     }
@@ -25,11 +26,8 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public Order update(Order orderToUpdate) {
-        Order order = get(orderToUpdate.getId());
-        order.setItems(orderToUpdate.getItems());
-        order.setUserId(orderToUpdate.getUserId());
-        return order;
+    public List getAllOrders() {
+        return null;
     }
 
     @Override

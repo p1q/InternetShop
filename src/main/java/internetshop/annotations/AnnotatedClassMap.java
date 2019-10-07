@@ -4,11 +4,11 @@ import internetshop.dao.BucketDao;
 import internetshop.dao.ItemDao;
 import internetshop.dao.OrderDao;
 import internetshop.dao.UserDao;
-import internetshop.factory.Factory;
 import internetshop.service.BucketService;
 import internetshop.service.ItemService;
 import internetshop.service.OrderService;
 import internetshop.service.UserService;
+import internetshop.util.Factory;
 import java.util.HashMap;
 import java.util.Map;
 

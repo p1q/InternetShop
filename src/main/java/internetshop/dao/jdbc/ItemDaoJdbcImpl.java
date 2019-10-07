@@ -82,10 +82,10 @@ public class ItemDaoJdbcImpl extends AbstractDao<Item> implements ItemDao {
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(Item item) {
         String query = "DELETE FROM items WHERE item_id = ?;";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setString(1, id.toString());
+            preparedStatement.setString(1, item.getId().toString());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error("Failed to delete the item!");

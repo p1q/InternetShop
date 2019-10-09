@@ -1,9 +1,11 @@
 package internetshop.dao.jdbc;
 
 import internetshop.annotations.Dao;
+import internetshop.annotations.Inject;
 import internetshop.dao.BucketDao;
 import internetshop.model.Bucket;
 import internetshop.model.Item;
+import internetshop.service.UserService;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,6 +19,9 @@ import org.apache.log4j.Logger;
 public class BucketDaoJdbcImpl extends AbstractDao<Bucket> implements BucketDao {
     private static final Logger LOGGER = Logger.getLogger(BucketDaoJdbcImpl.class);
 
+    @Inject
+    private static UserService userService;
+
     public BucketDaoJdbcImpl(Connection connection) {
         super(connection);
     }
@@ -26,7 +31,7 @@ public class BucketDaoJdbcImpl extends AbstractDao<Bucket> implements BucketDao 
         String query = "INSERT INTO buckets(user_id) VALUES(?);";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query,
                 Statement.RETURN_GENERATED_KEYS)) {
-            preparedStatement.setString(1, bucket.getUserId().toString());
+            preparedStatement.setString(1, bucket.getUser().toString());
             int affectedRows = preparedStatement.executeUpdate();
             if (affectedRows == 0) {
                 throw new SQLException("Failed to create the bucket");
@@ -53,7 +58,8 @@ public class BucketDaoJdbcImpl extends AbstractDao<Bucket> implements BucketDao 
             preparedStatement.setLong(1, bucketId);
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
-            bucket.setUserId(resultSet.getLong("user_id"));
+            Long userId = resultSet.getLong("user_id");
+            bucket.setUser(userService.get(userId));
             bucket.setBucketId(bucketId);
         } catch (SQLException e) {
             LOGGER.error("Failed to get bucket with ID: " + bucketId);

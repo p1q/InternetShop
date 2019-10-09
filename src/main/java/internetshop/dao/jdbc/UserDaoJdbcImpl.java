@@ -83,7 +83,7 @@ public class UserDaoJdbcImpl extends AbstractDao<User> implements UserDao {
         }
 
         Bucket bucket = new Bucket();
-        bucket.setUserId(user.getUserId());
+        bucket.setUser(user);
         bucketService.create(bucket);
         return user;
     }
@@ -173,13 +173,13 @@ public class UserDaoJdbcImpl extends AbstractDao<User> implements UserDao {
     }
 
     @Override
-    public void delete(Long userId) {
-        bucketService.delete(userId);
+    public void delete(User user) {
+        bucketService.delete(user.getUserId());
         String query = "DELETE FROM users_roles WHERE user_id=?; "
                 + "DELETE FROM users WHERE user_id = ?;";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setLong(1, userId);
-            preparedStatement.setLong(2, userId);
+            preparedStatement.setLong(1, user.getUserId());
+            preparedStatement.setLong(2, user.getUserId());
             int affectedRows = preparedStatement.executeUpdate();
             if (affectedRows == 0) {
                 throw new SQLException("Failed to delete the user");

@@ -44,12 +44,13 @@ public class BucketServiceImpl implements BucketService {
     }
 
     @Override
-    public void delete(Long userId) {
-        bucketDao.delete(userId);
-    }
-
-    @Override
     public void clear(Long bucketId) {
         bucketDao.clear(bucketId);
+    }
+
+    @Deprecated
+    @Override
+    public void delete(Long userId) {
+        bucketDao.delete(userId);
     }
 }

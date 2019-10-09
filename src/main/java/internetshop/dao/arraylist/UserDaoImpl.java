@@ -39,9 +39,9 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(User user) {
         DataBase.users
-                .removeIf(user -> user.getUserId().equals(id));
+                .removeIf(u -> u.getUserId().equals(user.getUserId()));
     }
 
     @Override

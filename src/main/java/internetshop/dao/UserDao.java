@@ -14,7 +14,7 @@ public interface UserDao {
 
     User update(User user);
 
-    void delete(Long id);
+    void delete(User user);
 
     User login(String login, String password) throws AuthenticationException;
 

@@ -1,6 +1,7 @@
 package internetshop.controllers;
 
 import internetshop.annotations.Inject;
+import internetshop.model.User;
 import internetshop.service.UserService;
 import java.io.IOException;
 import javax.servlet.http.HttpServlet;
@@ -14,7 +15,8 @@ public class DeleteUserController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
-        userService.delete(Long.valueOf(request.getParameter("user_id")));
+        User user = userService.get(Long.valueOf(request.getParameter("user_id")));
+        userService.delete(user);
         response.sendRedirect(request.getContextPath() + "/user/show-all-users");
     }
 }

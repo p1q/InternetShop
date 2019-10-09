@@ -28,7 +28,7 @@ public class ItemDaoHibernateImpl implements ItemDao {
             if (transaction != null) {
                 transaction.rollback();
             }
-            LOGGER.error("Error creating all users. ", e);
+            LOGGER.error("Error creating the item. ", e);
         }
         item.setId(itemId);
         return item;

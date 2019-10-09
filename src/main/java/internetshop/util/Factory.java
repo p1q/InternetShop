@@ -4,10 +4,10 @@ import internetshop.dao.BucketDao;
 import internetshop.dao.ItemDao;
 import internetshop.dao.OrderDao;
 import internetshop.dao.UserDao;
+import internetshop.dao.hibernate.BucketDaoHibernateImpl;
 import internetshop.dao.hibernate.ItemDaoHibernateImpl;
-import internetshop.dao.jdbc.BucketDaoJdbcImpl;
+import internetshop.dao.hibernate.UserDaoHibernateImpl;
 import internetshop.dao.jdbc.OrderDaoJdbcImpl;
-import internetshop.dao.jdbc.UserDaoJdbcImpl;
 import internetshop.service.BucketService;
 import internetshop.service.ItemService;
 import internetshop.service.OrderService;
@@ -53,7 +53,7 @@ public class Factory {
 
     public static BucketDao getBucketDao() {
         return bucketDao != null ? bucketDao :
-                (bucketDao = new BucketDaoJdbcImpl(connection));
+                (bucketDao = new BucketDaoHibernateImpl());
     }
 
     public static BucketService getBucketService() {
@@ -73,7 +73,7 @@ public class Factory {
 
     public static UserDao getUserDao() {
         return userDao != null ? userDao :
-                (userDao = new UserDaoJdbcImpl(connection));
+                (userDao = new UserDaoHibernateImpl());
     }
 
     public static OrderDao getOrderDao() {

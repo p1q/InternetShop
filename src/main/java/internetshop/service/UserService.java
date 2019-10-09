@@ -18,7 +18,7 @@ public interface UserService {
 
     Optional<User> getByToken(String token);
 
-    void delete(Long id);
+    void delete(User user);
 
     boolean isLoginExists(String login);
 }

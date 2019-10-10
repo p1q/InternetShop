@@ -21,8 +21,8 @@ CREATE TABLE IF NOT EXISTS users (
                                      PRIMARY KEY (user_id)
 )
     ENGINE = INNODB,
-    AUTO_INCREMENT = 62,
-    AVG_ROW_LENGTH = 5461,
+    AUTO_INCREMENT = 89,
+    AVG_ROW_LENGTH = 4096,
     CHARACTER SET utf8,
     COLLATE utf8_general_ci;
 
@@ -32,8 +32,8 @@ CREATE TABLE IF NOT EXISTS orders (
                                       PRIMARY KEY (order_id, user_id)
 )
     ENGINE = INNODB,
-    AUTO_INCREMENT = 7,
-    AVG_ROW_LENGTH = 8192,
+    AUTO_INCREMENT = 9,
+    AVG_ROW_LENGTH = 4096,
     CHARACTER SET utf8,
     COLLATE utf8_general_ci;
 
@@ -50,8 +50,8 @@ CREATE TABLE IF NOT EXISTS buckets (
                                        PRIMARY KEY (bucket_id, user_id)
 )
     ENGINE = INNODB,
-    AUTO_INCREMENT = 17,
-    AVG_ROW_LENGTH = 5461,
+    AUTO_INCREMENT = 32,
+    AVG_ROW_LENGTH = 4096,
     CHARACTER SET utf8,
     COLLATE utf8_general_ci;
 
@@ -60,7 +60,7 @@ ALTER TABLE buckets
 
 ALTER TABLE buckets
     ADD CONSTRAINT users_fk FOREIGN KEY (user_id)
-        REFERENCES users (user_id) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        REFERENCES users (user_id) ON DELETE CASCADE ON UPDATE CASCADE;
 
 CREATE TABLE IF NOT EXISTS roles (
                                      role_id int(11) NOT NULL AUTO_INCREMENT,
@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS roles (
                                      PRIMARY KEY (role_id)
 )
     ENGINE = INNODB,
-    AUTO_INCREMENT = 4,
+    AUTO_INCREMENT = 5,
     AVG_ROW_LENGTH = 8192,
     CHARACTER SET utf8,
     COLLATE utf8_general_ci;
@@ -79,7 +79,7 @@ CREATE TABLE IF NOT EXISTS users_roles (
                                            PRIMARY KEY (user_id, role_id)
 )
     ENGINE = INNODB,
-    AVG_ROW_LENGTH = 3276,
+    AVG_ROW_LENGTH = 2730,
     CHARACTER SET utf8,
     COLLATE utf8_general_ci;
 
@@ -92,7 +92,7 @@ ALTER TABLE users_roles
 
 ALTER TABLE users_roles
     ADD CONSTRAINT user_fk FOREIGN KEY (user_id)
-        REFERENCES users (user_id) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        REFERENCES users (user_id) ON DELETE CASCADE ON UPDATE CASCADE;
 
 CREATE TABLE IF NOT EXISTS items (
                                      item_id int(11) NOT NULL AUTO_INCREMENT,
@@ -101,8 +101,8 @@ CREATE TABLE IF NOT EXISTS items (
                                      PRIMARY KEY (item_id)
 )
     ENGINE = INNODB,
-    AUTO_INCREMENT = 9,
-    AVG_ROW_LENGTH = 4096,
+    AUTO_INCREMENT = 18,
+    AVG_ROW_LENGTH = 1820,
     CHARACTER SET utf8,
     COLLATE utf8_general_ci;
 
@@ -112,7 +112,7 @@ CREATE TABLE IF NOT EXISTS orders_items (
                                             PRIMARY KEY (order_id, item_id)
 )
     ENGINE = INNODB,
-    AVG_ROW_LENGTH = 4096,
+    AVG_ROW_LENGTH = 1820,
     CHARACTER SET utf8,
     COLLATE utf8_general_ci;
 
@@ -133,7 +133,7 @@ CREATE TABLE IF NOT EXISTS buckets_items (
                                              PRIMARY KEY (bucket_id, item_id)
 )
     ENGINE = INNODB,
-    AVG_ROW_LENGTH = 5461,
+    AVG_ROW_LENGTH = 16384,
     CHARACTER SET utf8,
     COLLATE utf8_general_ci;
 
@@ -142,11 +142,11 @@ ALTER TABLE buckets_items
 
 ALTER TABLE buckets_items
     ADD CONSTRAINT buckets_fk FOREIGN KEY (bucket_id)
-        REFERENCES buckets (bucket_id) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        REFERENCES buckets (bucket_id) ON DELETE NO ACTION;
 
 ALTER TABLE buckets_items
     ADD CONSTRAINT items_fk FOREIGN KEY (item_id)
-        REFERENCES items (item_id) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        REFERENCES items (item_id) ON DELETE NO ACTION;
 
 CREATE USER IF NOT EXISTS 'adm'@'%' IDENTIFIED WITH mysql_native_password PASSWORD EXPIRE NEVER;
 
@@ -207,9 +207,9 @@ GRANT Select, Insert, Update, Delete, Create, Drop, References, Index, Alter, Cr
 
 BEGIN;
 INSERT INTO users(user_id, name, surname, login, password, email, phone, token, salt) VALUES
-(1, 'Admin', 'ADMIN', 'admin', '2206047770cd51a3fd79582a424901fae113783d706e013ec9276a1070f1a7556c39ab311b5fe058be559466bd0dc35bf4d490d2f99c28c083427f3e3fc55749', 'admin@gmail.com', '0675478593', 'c8cce9e7-f365-49c9-b3bb-0eefcebf10eb', x''),
-(2, 'User', 'USER', 'user', '2206047770cd51a3fd79582a424901fae113783d706e013ec9276a1070f1a7556c39ab311b5fe058be559466bd0dc35bf4d490d2f99c28c083427f3e3fc55749', 'user@mail.com', '0685470547', '8838c80b-edbc-48c0-b36d-5c853df69714', x''),
-(3, 'Victor', 'Petroff', 'victor', '2206047770cd51a3fd79582a424901fae113783d706e013ec9276a1070f1a7556c39ab311b5fe058be559466bd0dc35bf4d490d2f99c28c083427f3e3fc557491', 'victor@gmail.com', '0985475501', '9e51f710-8771-4b28-9f95-7f55ade88489', x'');
+(1, 'Admin', 'ADMIN', 'admin', '1bf004e9feb26ba4bb92418e1017746c3618959e797ae176bf8b620292861a5f44f27bb1dfc5fe28235c610da53b1b008f76524e2110ec61793cb85571bf6528', 'admin@gmail.com', '0677580666', 'd1e06ef6-6beb-4754-9ec6-9e8eb8890062', x'E1F9E9A9C90136D7DA12D64D7EA1EDC8'),
+(2, 'User', 'USER', 'user', 'affb80cf4c8f6a0f60dd3c221af5098e6d823f8a4fc05018471088bcb489595b49d4a554afc96adfdfe2f3631c2bc2e9843bb755acab6d33553b3bb8bc3c70a1', 'user@gmail.com', '0684571241', '72a18643-3f1d-455d-9a96-575e4140ab07', x'AEE8B54E94368C9EAD06FE80AB753993'),
+(3, 'Victor', 'Petroff', 'victor', 'bc69badfc7a87ee44acc6540ddfea28e10b9be74da290763bd52e20ab8f11260c51630e52a22b3c39ba70566d6b0928e0bb36b792e7c9a74b7b1a3c0be8f03d0', 'victor@mail.com', '0985234754', 'd2d4429a-2c78-4704-9ec4-ab3b260f99ab', x'986038C41750242235651EA942C7D2B4');
 COMMIT;
 
 
@@ -224,7 +224,9 @@ COMMIT;
 BEGIN;
 INSERT INTO orders(order_id, user_id) VALUES
 (1, 2),
-(6, 2);
+(6, 2),
+(7, 2),
+(8, 2);
 COMMIT;
 
 
@@ -234,7 +236,11 @@ INSERT INTO items(item_id, name, price) VALUES
 (5, 'Phone', 671.00),
 (6, 'Phone-000', 574.00),
 (7, 'Tablet4', 1247.00),
-(8, 'Watches7', 240.00);
+(8, 'Watches7', 240.00),
+(9, 'Tommy Hilfiger', 657.00),
+(10, 'Tablet Lenovo', 243.00),
+(11, 'Google Pixel 3a', 846.00),
+(12, 'Samsung Galaxy Note10', 864.00);
 COMMIT;
 
 
@@ -260,15 +266,18 @@ BEGIN;
 INSERT INTO orders_items(order_id, item_id) VALUES
 (1, 4),
 (6, 4),
+(7, 4),
+(7, 5),
 (6, 6),
-(6, 8);
+(7, 6),
+(6, 8),
+(7, 8),
+(7, 12),
+(8, 12);
 COMMIT;
 
 
 BEGIN;
 INSERT INTO buckets_items(bucket_id, item_id) VALUES
-(1, 4),
-(2, 4),
-(2, 6),
-(2, 8);
+(1, 4);
 COMMIT;

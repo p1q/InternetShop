@@ -7,6 +7,7 @@ import internetshop.model.Item;
 import internetshop.model.Order;
 import internetshop.model.User;
 import internetshop.service.ItemService;
+import internetshop.service.UserService;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,7 +15,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import internetshop.service.UserService;
+import java.util.Optional;
+
 import org.apache.log4j.Logger;
 
 @Dao
@@ -69,7 +71,7 @@ public class OrderDaoJdbcImpl extends AbstractDao<Item> implements OrderDao {
     }
 
     @Override
-    public Order get(Long orderId) {
+    public Optional<Order> get(Long orderId) {
         Order order = new Order();
         String query = "SELECT * FROM orders WHERE order_id = ?;";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -84,7 +86,7 @@ public class OrderDaoJdbcImpl extends AbstractDao<Item> implements OrderDao {
         }
         System.out.println();
         order.setItems(getAllItems(orderId));
-        return order;
+        return Optional.of(order);
     }
 
     private List<Item> getAllItems(Long orderId) {
@@ -112,13 +114,19 @@ public class OrderDaoJdbcImpl extends AbstractDao<Item> implements OrderDao {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Long orderId = resultSet.getLong("order_id");
-                orders.add(get(orderId));
+                orders.add(get(orderId).get());
             }
             resultSet.close();
         } catch (SQLException e) {
             LOGGER.error("Failed to get all orders.");
         }
         return orders;
+    }
+
+    @Override
+    public Order update(Order order) {
+        // Do nothing in this implementation
+        return null;
     }
 
     @Override

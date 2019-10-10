@@ -10,7 +10,7 @@ public interface UserService {
 
     User create(User user);
 
-    User get(Long id);
+    Optional<User> get(Long id);
 
     User update(User user);
 
@@ -18,7 +18,7 @@ public interface UserService {
 
     Optional<User> getByToken(String token);
 
-    void delete(Long id);
+    void delete(User user);
 
     boolean isLoginExists(String login);
 }

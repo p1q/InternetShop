@@ -2,6 +2,7 @@ package internetshop.dao;
 
 import internetshop.model.Bucket;
 import java.util.List;
+import java.util.Optional;
 
 public interface BucketDao {
     Bucket create(Bucket bucket);
@@ -10,13 +11,13 @@ public interface BucketDao {
 
     List getAllItems(Long bucketId);
 
-    Bucket getByUserId(Long userId);
+    Optional<Bucket> getByUserId(Long userId);
 
     void addItem(Long bucketId, Long itemId);
 
     void deleteItem(Long bucketId, Long itemId);
 
-    void delete(Long userId);
+    void delete(Long bucketId);
 
     void clear(Long bucketId);
 }

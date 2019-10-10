@@ -7,6 +7,7 @@ import internetshop.model.Bucket;
 import internetshop.model.Item;
 import internetshop.service.BucketService;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BucketServiceImpl implements BucketService {
@@ -24,7 +25,7 @@ public class BucketServiceImpl implements BucketService {
     }
 
     @Override
-    public Bucket getByUserId(Long userId) {
+    public Optional<Bucket> getByUserId(Long userId) {
         return bucketDao.getByUserId(userId);
     }
 
@@ -44,12 +45,13 @@ public class BucketServiceImpl implements BucketService {
     }
 
     @Override
-    public void delete(Long userId) {
-        bucketDao.delete(userId);
-    }
-
-    @Override
     public void clear(Long bucketId) {
         bucketDao.clear(bucketId);
+    }
+
+    @Deprecated
+    @Override
+    public void delete(Long userId) {
+        bucketDao.delete(userId);
     }
 }

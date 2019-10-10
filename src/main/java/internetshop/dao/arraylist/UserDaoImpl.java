@@ -19,12 +19,12 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User get(Long id) {
-        return DataBase.users.stream()
+    public Optional<User> get(Long id) {
+        return Optional.of(DataBase.users.stream()
                 .filter(user -> user.getUserId().equals(id))
                 .findFirst()
                 .orElseThrow(() -> new NoSuchElementException("User ID '"
-                        + id + "' wasn't found!"));
+                        + id + "' wasn't found!")));
     }
 
     @Override
@@ -34,14 +34,13 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User update(User userToUpdate) {
-        User user = get(userToUpdate.getUserId());
-        return user;
+        return get(userToUpdate.getUserId()).get();
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(User user) {
         DataBase.users
-                .removeIf(user -> user.getUserId().equals(id));
+                .removeIf(u -> u.getUserId().equals(user.getUserId()));
     }
 
     @Override

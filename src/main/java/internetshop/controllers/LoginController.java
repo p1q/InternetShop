@@ -14,6 +14,7 @@ import org.apache.log4j.Logger;
 
 public class LoginController extends HttpServlet {
     private static final Logger LOGGER = Logger.getLogger(LoginController.class);
+
     @Inject
     private static UserService userService;
 

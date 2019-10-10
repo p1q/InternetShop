@@ -6,6 +6,7 @@ import internetshop.database.DataBase;
 import internetshop.model.Bucket;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Dao
 public class BucketDaoImpl implements BucketDao {
@@ -27,34 +28,36 @@ public class BucketDaoImpl implements BucketDao {
 
     @Override
     public List getAllItems(Long bucketId) {
+        // Do nothing in this implementation
         return null;
     }
 
     @Override
-    public Bucket getByUserId(Long userId) {
-        return null;
+    public Optional<Bucket> getByUserId(Long userId) {
+        // Do nothing in this implementation
+        return Optional.empty();
     }
 
     @Override
     public void addItem(Long bucketId, Long itemId) {
-
+        // Do nothing in this implementation
     }
 
     @Override
     public void deleteItem(Long bucketId, Long itemId) {
-
+        // Do nothing in this implementation
     }
 
     public Bucket update(Bucket bucketToUpdate) {
         Bucket bucket = get(bucketToUpdate.getBucketId());
         bucket.setItems(bucketToUpdate.getItems());
-        bucket.setUserId(bucketToUpdate.getUserId());
+        bucket.setUser(bucketToUpdate.getUser());
         return bucket;
     }
 
     @Override
     public void clear(Long bucketId) {
-
+        // Do nothing in this implementation
     }
 
     @Override

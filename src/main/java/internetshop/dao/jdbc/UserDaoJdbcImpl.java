@@ -89,17 +89,17 @@ public class UserDaoJdbcImpl extends AbstractDao<User> implements UserDao {
     }
 
     @Override
-    public User get(Long userId) {
+    public Optional<User> get(Long userId) {
         String query = "SELECT * FROM users WHERE user_id = ?;";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setLong(1, userId);
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
-            return getUserFromResultSet(resultSet);
+            return Optional.of(getUserFromResultSet(resultSet));
         } catch (SQLException e) {
             LOGGER.error("Failed to get user with ID: " + userId);
         }
-        return null;
+        return Optional.empty();
     }
 
     private User getUserFromResultSet(ResultSet resultSet) throws SQLException {
@@ -198,11 +198,13 @@ public class UserDaoJdbcImpl extends AbstractDao<User> implements UserDao {
             if (resultSet.next()) {
                 Long userId = resultSet.getLong("user_id");
                 resultSet.close();
-                User user = get(userId);
-                String registeredUserHash = user.getPassword();
-                String loginUserHash = HashUtil.hashPassword(password, user.getSalt());
-                if (registeredUserHash.equals(loginUserHash)) {
-                    return user;
+                if (get(userId).isPresent()) {
+                    User user = get(userId).get();
+                    String registeredUserHash = user.getPassword();
+                    String loginUserHash = HashUtil.hashPassword(password, user.getSalt());
+                    if (registeredUserHash.equals(loginUserHash)) {
+                        return user;
+                    }
                 }
             }
             resultSet.close();
@@ -221,7 +223,7 @@ public class UserDaoJdbcImpl extends AbstractDao<User> implements UserDao {
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 Long userId = resultSet.getLong("user_id");
-                return Optional.of(get(userId));
+                return get(userId);
             }
         } catch (SQLException e) {
             LOGGER.error(e);

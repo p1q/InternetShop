@@ -5,6 +5,7 @@ import internetshop.annotations.Inject;
 import internetshop.dao.OrderDao;
 import internetshop.model.Item;
 import internetshop.model.Order;
+import internetshop.model.User;
 import internetshop.service.ItemService;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,6 +14,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import internetshop.service.UserService;
 import org.apache.log4j.Logger;
 
 @Dao
@@ -21,6 +23,8 @@ public class OrderDaoJdbcImpl extends AbstractDao<Item> implements OrderDao {
 
     @Inject
     private static ItemService itemService;
+    @Inject
+    private static UserService userService;
 
     public OrderDaoJdbcImpl(Connection connection) {
         super(connection);
@@ -31,7 +35,7 @@ public class OrderDaoJdbcImpl extends AbstractDao<Item> implements OrderDao {
         String query = "INSERT INTO orders (user_id) VALUES (?);";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query,
                 Statement.RETURN_GENERATED_KEYS)) {
-            preparedStatement.setString(1, order.getUserId().toString());
+            preparedStatement.setString(1, order.getUser().getUserId().toString());
             int affectedRows = preparedStatement.executeUpdate();
             if (affectedRows == 0) {
                 throw new SQLException("Failed to create the order");
@@ -72,7 +76,8 @@ public class OrderDaoJdbcImpl extends AbstractDao<Item> implements OrderDao {
             preparedStatement.setLong(1, orderId);
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
-            order.setUserId(resultSet.getLong("user_id"));
+            User user = userService.get(resultSet.getLong("user_id")).get();
+            order.setUser(user);
             order.setOrderId(orderId);
         } catch (SQLException e) {
             LOGGER.error("Failed to get bucket with ID: " + orderId);

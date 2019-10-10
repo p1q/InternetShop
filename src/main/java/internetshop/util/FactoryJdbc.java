@@ -28,7 +28,7 @@ public class FactoryJdbc {
             + DATABASE_NAME + "?allowMultiQueries=true";
     private static final String USER = "adm";
     private static final String PASSWORD = "qwerty";
-    private static final Logger LOGGER = Logger.getLogger(Factory.class);
+    private static final Logger LOGGER = Logger.getLogger(FactoryJdbc.class);
 
     private static ItemDao itemDao;
     private static ItemService itemService;

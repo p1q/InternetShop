@@ -21,10 +21,9 @@ public class ShowUserOrdersController extends HttpServlet {
         Long userId = (Long) request.getSession(true).getAttribute("userId");
         List<Order> allOrders = new ArrayList<>(orderService.getAll());
         List<Order> orders = new ArrayList<>();
-
-        for (Order i : allOrders) {
-            if (i.getUser().getUserId().equals(userId)) {
-                orders.add(i);
+        for (Order order : allOrders) {
+            if (order.getUser().getUserId().equals(userId)) {
+                orders.add(order);
             }
         }
 

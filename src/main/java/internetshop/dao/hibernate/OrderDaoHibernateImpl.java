@@ -12,7 +12,6 @@ import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.query.Query;
 
 @Dao
 public class OrderDaoHibernateImpl implements OrderDao {
@@ -37,12 +36,8 @@ public class OrderDaoHibernateImpl implements OrderDao {
     @Override
     public Optional<Order> get(Long orderId) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            Query query = session.createQuery("FROM Order WHERE orderId=:orderId");
-            query.setParameter("orderId", orderId);
-            Optional<Order> order = query.list().stream().findFirst();
-            if (order.isPresent()) {
-                return order;
-            }
+            Order order = session.get(Order.class, orderId);
+            return Optional.of(order);
         } catch (HibernateException e) {
             LOGGER.error("Error retrieving the order. ", e);
         }

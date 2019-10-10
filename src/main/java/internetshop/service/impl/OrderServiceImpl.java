@@ -3,7 +3,9 @@ package internetshop.service.impl;
 import internetshop.annotations.Inject;
 import internetshop.annotations.Service;
 import internetshop.dao.OrderDao;
+import internetshop.model.Bucket;
 import internetshop.model.Order;
+import internetshop.model.User;
 import internetshop.service.BucketService;
 import internetshop.service.OrderService;
 import java.util.List;
@@ -22,7 +24,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order get(Long id) {
-        return orderDao.get(id);
+        return orderDao.get(id).get();
     }
 
     @Override
@@ -36,8 +38,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order checkout(Long bucketId, Long userId) {
-        Order order = new Order(bucketService.get(bucketId).getItems(), userId);
+    public Order checkout(Bucket bucket, User user) {
+        Order order = new Order(bucket.getItems(), user);
         orderDao.create(order);
         return order;
     }

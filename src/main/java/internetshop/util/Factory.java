@@ -6,8 +6,8 @@ import internetshop.dao.OrderDao;
 import internetshop.dao.UserDao;
 import internetshop.dao.hibernate.BucketDaoHibernateImpl;
 import internetshop.dao.hibernate.ItemDaoHibernateImpl;
+import internetshop.dao.hibernate.OrderDaoHibernateImpl;
 import internetshop.dao.hibernate.UserDaoHibernateImpl;
-import internetshop.dao.jdbc.OrderDaoJdbcImpl;
 import internetshop.service.BucketService;
 import internetshop.service.ItemService;
 import internetshop.service.OrderService;
@@ -16,20 +16,8 @@ import internetshop.service.impl.BucketServiceImpl;
 import internetshop.service.impl.ItemServiceImpl;
 import internetshop.service.impl.OrderServiceImpl;
 import internetshop.service.impl.UserServiceImpl;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import org.apache.log4j.Logger;
 
 public class Factory {
-    private static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
-    private static final String DATABASE_NAME = "internetshop";
-    private static final String DATABASE_URL = "jdbc:mysql://192.168.1.34/"
-            + DATABASE_NAME + "?allowMultiQueries=true";
-    private static final String USER = "adm";
-    private static final String PASSWORD = "qwerty";
-    private static final Logger LOGGER = Logger.getLogger(Factory.class);
-
     private static ItemDao itemDao;
     private static ItemService itemService;
     private static BucketDao bucketDao;
@@ -38,18 +26,6 @@ public class Factory {
     private static UserDao userDao;
     private static OrderService orderService;
     private static UserService userService;
-    private static Connection connection;
-
-    static {
-        try {
-            LOGGER.info("Connecting to the database...");
-            Class.forName(JDBC_DRIVER);
-            connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
-            LOGGER.info("Connection to the database was established successfully!");
-        } catch (ClassNotFoundException | SQLException e) {
-            LOGGER.error(e);
-        }
-    }
 
     public static BucketDao getBucketDao() {
         return bucketDao != null ? bucketDao :
@@ -71,14 +47,14 @@ public class Factory {
                 (itemService = new ItemServiceImpl());
     }
 
+    public static UserService getUserService() {
+        return userService != null ? userService :
+                (userService = new UserServiceImpl());
+    }
+
     public static UserDao getUserDao() {
         return userDao != null ? userDao :
                 (userDao = new UserDaoHibernateImpl());
-    }
-
-    public static OrderDao getOrderDao() {
-        return orderDao != null ? orderDao :
-                (orderDao = new OrderDaoJdbcImpl(connection));
     }
 
     public static OrderService getOrderService() {
@@ -86,8 +62,8 @@ public class Factory {
                 (orderService = new OrderServiceImpl());
     }
 
-    public static UserService getUserService() {
-        return userService != null ? userService :
-                (userService = new UserServiceImpl());
+    public static OrderDao getOrderDao() {
+        return orderDao != null ? orderDao :
+                (orderDao = new OrderDaoHibernateImpl());
     }
 }

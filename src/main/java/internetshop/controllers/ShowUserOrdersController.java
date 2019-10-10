@@ -23,7 +23,7 @@ public class ShowUserOrdersController extends HttpServlet {
         List<Order> orders = new ArrayList<>();
 
         for (Order i : allOrders) {
-            if (i.getUserId().equals(userId)) {
+            if (i.getUser().getUserId().equals(userId)) {
                 orders.add(i);
             }
         }

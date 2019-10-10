@@ -7,7 +7,7 @@ import java.util.Optional;
 public interface BucketDao {
     Bucket create(Bucket bucket);
 
-    Bucket get(Long bucketId);
+    Optional<Bucket> get(Long bucketId);
 
     List getAllItems(Long bucketId);
 

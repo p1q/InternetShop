@@ -52,7 +52,7 @@ public class BucketDaoJdbcImpl extends AbstractDao<Bucket> implements BucketDao 
     }
 
     @Override
-    public Bucket get(Long bucketId) {
+    public Optional<Bucket> get(Long bucketId) {
         Bucket bucket = new Bucket();
         String query = "SELECT * FROM buckets WHERE bucket_id = ?;";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -66,7 +66,7 @@ public class BucketDaoJdbcImpl extends AbstractDao<Bucket> implements BucketDao 
             LOGGER.error("Failed to get bucket with ID: " + bucketId);
         }
         bucket.setItems(getAllItems(bucket.getBucketId()));
-        return bucket;
+        return Optional.of(bucket);
     }
 
     @Override
@@ -103,7 +103,7 @@ public class BucketDaoJdbcImpl extends AbstractDao<Bucket> implements BucketDao 
         } catch (SQLException e) {
             LOGGER.error("Failed to obtain bucket for user ID: " + userId);
         }
-        return Optional.of(get(bucketId));
+        return get(bucketId);
     }
 
     @Override

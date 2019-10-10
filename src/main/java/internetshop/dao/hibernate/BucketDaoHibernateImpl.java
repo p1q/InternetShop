@@ -42,24 +42,24 @@ public class BucketDaoHibernateImpl implements BucketDao {
     }
 
     @Override
-    public Bucket get(Long bucketId) {
+    public Optional<Bucket> get(Long bucketId) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             Query query = session.createQuery("FROM Bucket WHERE bucketId=:bucketId");
             query.setParameter("bucketId", bucketId);
             Optional<Bucket> bucket = query.list().stream().findFirst();
             if (bucket.isPresent()) {
-                return bucket.get();
+                return bucket;
             }
         } catch (HibernateException e) {
             LOGGER.error("Error retrieving the bucket. ", e);
         }
         LOGGER.error("Error retrieving the bucket.");
-        return null;
+        return Optional.empty();
     }
 
     @Override
     public List getAllItems(Long bucketId) {
-        return get(bucketId).getItems();
+        return get(bucketId).get().getItems();
     }
 
     @Override

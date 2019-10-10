@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import org.apache.log4j.Logger;
 
 @Dao
@@ -59,7 +60,7 @@ public class BucketDaoJdbcImpl extends AbstractDao<Bucket> implements BucketDao 
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
             Long userId = resultSet.getLong("user_id");
-            bucket.setUser(userService.get(userId));
+            userService.get(userId).ifPresent(bucket::setUser);
             bucket.setBucketId(bucketId);
         } catch (SQLException e) {
             LOGGER.error("Failed to get bucket with ID: " + bucketId);
@@ -91,7 +92,7 @@ public class BucketDaoJdbcImpl extends AbstractDao<Bucket> implements BucketDao 
     }
 
     @Override
-    public Bucket getByUserId(Long userId) {
+    public Optional<Bucket> getByUserId(Long userId) {
         long bucketId = 0;
         String query = "SELECT bucket_id FROM buckets WHERE user_id = ?;";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -102,7 +103,7 @@ public class BucketDaoJdbcImpl extends AbstractDao<Bucket> implements BucketDao 
         } catch (SQLException e) {
             LOGGER.error("Failed to obtain bucket for user ID: " + userId);
         }
-        return get(bucketId);
+        return Optional.of(get(bucketId));
     }
 
     @Override

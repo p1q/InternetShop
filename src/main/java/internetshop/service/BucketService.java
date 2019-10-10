@@ -3,6 +3,7 @@ package internetshop.service;
 import internetshop.model.Bucket;
 import internetshop.model.Item;
 import java.util.List;
+import java.util.Optional;
 
 public interface BucketService {
     List<Item> getAllItems(Bucket bucket);
@@ -15,7 +16,7 @@ public interface BucketService {
 
     Bucket get(Long bucketId);
 
-    Bucket getByUserId(Long userId);
+    Optional<Bucket> getByUserId(Long userId);
 
     void delete(Long userId);
 

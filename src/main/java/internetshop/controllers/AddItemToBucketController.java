@@ -6,6 +6,7 @@ import internetshop.model.Item;
 import internetshop.service.BucketService;
 import internetshop.service.ItemService;
 import java.io.IOException;
+import java.util.Optional;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,8 +22,8 @@ public class AddItemToBucketController extends HttpServlet {
             throws IOException {
         Long userId = (Long) request.getSession(true).getAttribute("userId");
         Item itemToAdd = itemService.get(Long.valueOf(request.getParameter("item_id")));
-        Bucket bucket = bucketService.getByUserId(userId);
-        bucketService.addItem(bucket, itemToAdd);
+        Optional<Bucket> bucket = bucketService.getByUserId(userId);
+        bucket.ifPresent(value -> bucketService.addItem(value, itemToAdd));
 
         response.sendRedirect(request.getContextPath() + "/user/show-bucket");
     }

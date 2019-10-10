@@ -24,10 +24,9 @@ public class BucketDaoHibernateImpl implements BucketDao {
     @Override
     public Bucket create(Bucket bucket) {
         Long bucketId = null;
-        Transaction transaction = null;
-
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            transaction = session.beginTransaction();
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        try {
             bucketId = (Long) session.save(bucket);
             transaction.commit();
         } catch (HibernateException e) {
@@ -35,6 +34,8 @@ public class BucketDaoHibernateImpl implements BucketDao {
                 transaction.rollback();
             }
             LOGGER.error("Error creating the bucket. ", e);
+        } finally {
+            session.close();
         }
         bucket.setBucketId(bucketId);
         return bucket;
@@ -62,26 +63,23 @@ public class BucketDaoHibernateImpl implements BucketDao {
     }
 
     @Override
-    public Bucket getByUserId(Long userId) {
+    public Optional<Bucket> getByUserId(Long userId) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             Query query = session.createQuery("FROM Bucket WHERE user.userId=:userId");
             query.setParameter("userId", userId);
-            Optional<Bucket> bucket = query.list().stream().findFirst();
-            if (bucket.isPresent()) {
-                return bucket.get();
-            }
+            return query.list().stream().findFirst();
         } catch (HibernateException e) {
             LOGGER.error("Error retrieving the bucket. ", e);
         }
         LOGGER.error("Error retrieving the bucket.");
-        return null;
+        return Optional.empty();
     }
 
     @Override
     public void addItem(Long bucketId, Long itemId) {
-        Transaction transaction = null;
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            transaction = session.beginTransaction();
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        try {
             Query query = session.createSQLQuery(
                     "INSERT INTO buckets_items(bucket_id, item_id) VALUES(?, ?);");
             query.setParameter(1, bucketId);
@@ -93,14 +91,16 @@ public class BucketDaoHibernateImpl implements BucketDao {
                 transaction.rollback();
             }
             LOGGER.error("Failed to add the item into the bucket");
+        } finally {
+            session.close();
         }
     }
 
     @Override
     public void deleteItem(Long bucketId, Long itemId) {
-        Transaction transaction = null;
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            transaction = session.beginTransaction();
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        try {
             Query query = session.createSQLQuery(
                     "DELETE FROM buckets_items WHERE bucket_id = ? AND item_id = ?;");
             query.setParameter(1, bucketId);
@@ -112,14 +112,16 @@ public class BucketDaoHibernateImpl implements BucketDao {
                 transaction.rollback();
             }
             LOGGER.error("Failed to delete the item from the bucket");
+        } finally {
+            session.close();
         }
     }
 
     @Override
     public void clear(Long bucketId) {
-        Transaction transaction = null;
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            transaction = session.beginTransaction();
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        try {
             Query query = session.createSQLQuery(
                     "DELETE FROM buckets_items WHERE bucket_id = ?;");
             query.setParameter(1, bucketId);
@@ -130,11 +132,14 @@ public class BucketDaoHibernateImpl implements BucketDao {
                 transaction.rollback();
             }
             LOGGER.error("Failed to clear the bucket");
+        } finally {
+            session.close();
         }
     }
 
     @Deprecated
     @Override
-    public void delete(Long userId) {
+    public void delete(Long bucketId) {
+        // Do nothing in this Hibernate implementation
     }
 }

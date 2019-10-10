@@ -1,9 +1,11 @@
 package internetshop.controllers;
 
 import internetshop.annotations.Inject;
+import internetshop.model.Bucket;
 import internetshop.service.BucketService;
 import internetshop.service.OrderService;
 import java.io.IOException;
+import java.util.Optional;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,10 +20,13 @@ public class CheckoutController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
         Long userId = (Long) request.getSession(true).getAttribute("userId");
-        Long bucketId = bucketService.getByUserId(userId).getBucketId();
-        orderService.checkout(bucketId, userId);
-        bucketService.clear(bucketId);
+        Optional<Bucket> bucket = bucketService.getByUserId(userId);
+        if (bucket.isPresent()) {
+            Long bucketId = bucket.get().getBucketId();
+            orderService.checkout(bucketId, userId);
+            bucketService.clear(bucketId);
+        }
 
-        response.sendRedirect(request.getContextPath() + "/user/show-all-orders");
+        response.sendRedirect(request.getContextPath() + "/user/show-user-orders");
     }
 }

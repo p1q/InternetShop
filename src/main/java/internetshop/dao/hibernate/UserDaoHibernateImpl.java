@@ -30,7 +30,6 @@ public class UserDaoHibernateImpl implements UserDao {
     @Override
     public User create(User user) {
         Long userId = null;
-        Transaction transaction = null;
         Long userRoleId;
 
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
@@ -40,8 +39,9 @@ public class UserDaoHibernateImpl implements UserDao {
         }
         user.addRole(new Role(userRoleId, "USER"));
 
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            transaction = session.beginTransaction();
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        try {
             userId = (Long) session.save(user);
             transaction.commit();
         } catch (HibernateException e) {
@@ -49,6 +49,8 @@ public class UserDaoHibernateImpl implements UserDao {
                 transaction.rollback();
             }
             LOGGER.error("Error creating the user. ", e);
+        } finally {
+            session.close();
         }
 
         user.setUserId(userId);
@@ -59,19 +61,16 @@ public class UserDaoHibernateImpl implements UserDao {
     }
 
     @Override
-    public User get(Long userId) {
+    public Optional<User> get(Long userId) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             Query query = session.createQuery("FROM User WHERE userId=:userId");
             query.setParameter("userId", userId);
-            Optional<User> user = query.list().stream().findFirst();
-            if (user.isPresent()) {
-                return user.get();
-            }
+            return query.list().stream().findFirst();
         } catch (HibernateException e) {
             LOGGER.error("Error retrieving the user. ", e);
         }
         LOGGER.error("Error retrieving the user.");
-        return null;
+        return Optional.empty();
     }
 
     @Override
@@ -90,9 +89,9 @@ public class UserDaoHibernateImpl implements UserDao {
 
     @Override
     public User update(User user) {
-        Transaction transaction = null;
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            transaction = session.beginTransaction();
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        try {
             session.update(user);
             transaction.commit();
         } catch (HibernateException e) {
@@ -100,15 +99,17 @@ public class UserDaoHibernateImpl implements UserDao {
                 transaction.rollback();
             }
             LOGGER.error("Error updating the user. ", e);
+        } finally {
+            session.close();
         }
         return user;
     }
 
     @Override
     public void delete(User user) {
-        Transaction transaction = null;
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            transaction = session.beginTransaction();
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        try {
             session.delete(user);
             transaction.commit();
         } catch (HibernateException e) {
@@ -116,6 +117,8 @@ public class UserDaoHibernateImpl implements UserDao {
                 transaction.rollback();
             }
             LOGGER.error("Error deleting the user. ", e);
+        } finally {
+            session.close();
         }
     }
 

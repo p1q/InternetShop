@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface UserDao {
     User create(User user);
 
-    User get(Long id);
+    Optional<User> get(Long id);
 
     List getAllUsers();
 

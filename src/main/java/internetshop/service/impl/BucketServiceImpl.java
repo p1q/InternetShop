@@ -21,7 +21,7 @@ public class BucketServiceImpl implements BucketService {
 
     @Override
     public Bucket get(Long id) {
-        return bucketDao.get(id);
+        return bucketDao.get(id).get();
     }
 
     @Override

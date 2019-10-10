@@ -18,12 +18,12 @@ public class BucketDaoImpl implements BucketDao {
     }
 
     @Override
-    public Bucket get(Long id) {
-        return DataBase.buckets.stream()
+    public Optional<Bucket> get(Long id) {
+        return Optional.of(DataBase.buckets.stream()
                 .filter(bucket -> bucket.getBucketId().equals(id))
                 .findFirst()
                 .orElseThrow(() ->
-                        new NoSuchElementException("Bucket ID '" + id + "' wasn't found!"));
+                        new NoSuchElementException("Bucket ID '" + id + "' wasn't found!")));
     }
 
     @Override
@@ -49,7 +49,7 @@ public class BucketDaoImpl implements BucketDao {
     }
 
     public Bucket update(Bucket bucketToUpdate) {
-        Bucket bucket = get(bucketToUpdate.getBucketId());
+        Bucket bucket = get(bucketToUpdate.getBucketId()).get();
         bucket.setItems(bucketToUpdate.getItems());
         bucket.setUser(bucketToUpdate.getUser());
         return bucket;

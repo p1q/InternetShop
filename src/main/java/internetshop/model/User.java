@@ -21,6 +21,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id", columnDefinition = "INT")
     private Long userId;
+
     @Column(name = "name")
     private String userName;
     @Column(name = "surname")
@@ -37,6 +38,7 @@ public class User {
     private String phone;
     @Column(name = "token")
     private String token;
+
     @ManyToMany(cascade = {
             CascadeType.DETACH,
             CascadeType.MERGE,

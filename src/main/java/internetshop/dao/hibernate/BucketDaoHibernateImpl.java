@@ -137,9 +137,20 @@ public class BucketDaoHibernateImpl implements BucketDao {
         }
     }
 
-    @Deprecated
     @Override
     public void delete(Long bucketId) {
-        // Do nothing in this Hibernate implementation
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            session.save(get(bucketId));
+            transaction.commit();
+        } catch (HibernateException e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            LOGGER.error("Error deleting the bucket. ", e);
+        } finally {
+            session.close();
+        }
     }
 }

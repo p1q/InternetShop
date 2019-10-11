@@ -1,7 +1,6 @@
 package internetshop.service;
 
 import internetshop.model.Item;
-
 import java.util.List;
 
 public interface ItemService {

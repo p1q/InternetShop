@@ -22,9 +22,11 @@ public class Bucket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "bucket_id", columnDefinition = "INT")
     private Long bucketId;
+
     @OneToOne
     @JoinColumn(name = "user_id", columnDefinition = "INT")
     private User user;
+
     @ManyToMany(cascade = {
             CascadeType.DETACH,
             CascadeType.MERGE,

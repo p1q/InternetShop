@@ -16,7 +16,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 import org.apache.log4j.Logger;
 
 @Dao
@@ -42,7 +41,6 @@ public class OrderDaoJdbcImpl extends AbstractDao<Item> implements OrderDao {
             if (affectedRows == 0) {
                 throw new SQLException("Failed to create the order");
             }
-
             try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
                     order.setOrderId(generatedKeys.getLong(1));
@@ -125,8 +123,15 @@ public class OrderDaoJdbcImpl extends AbstractDao<Item> implements OrderDao {
 
     @Override
     public Order update(Order order) {
-        // Do nothing in this implementation
-        return null;
+        String query = "UPDATE orders SET user_id = ? WHERE order_id = ?;";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setLong(1, order.getUser().getUserId());
+            preparedStatement.setLong(2, order.getId());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            LOGGER.error("Failed to update the order", e);
+        }
+        return order;
     }
 
     @Override

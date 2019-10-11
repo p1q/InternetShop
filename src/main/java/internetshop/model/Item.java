@@ -14,8 +14,10 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "item_id", columnDefinition = "INT")
     private Long itemId;
+
     @Column(name = "name")
     private String name;
+
     @Column(name = "price", columnDefinition = "DECIMAL")
     private Double price;
 

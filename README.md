@@ -43,4 +43,4 @@
 ## :scroll: License
 
 Copyright © 2019 [Eugeny Prokop](https://github.com/p1q).<br />
-This project is MIT licensed. See the [License](LICENSE) file.
+This project is MIT licensed. See the [License](https://github.com/p1q/InternetShop/blob/master/LICENSE) file.

@@ -2,12 +2,6 @@
 
 <p align="center"><img src="https://github.com/p1q/InternetShop/blob/master/src/main/resources/logo.jpg" title="InternetShopLogo" /></p>
 
-<p align="center">
-<img src="https://badgen.net/badge/Release/0.6.2/blue" />&nbsp;
-<img src="https://badgen.net/badge/Lisence/MIT/blue" />&nbsp;
-<img src="https://api.codacy.com/project/badge/Grade/50ce9e1a567343ee9ac7c134071d97ba" />&nbsp;
-<img src="https://travis-ci.org/MikhailMS/java-shop-example.svg" /></p>
-
 ## 🤔 What's this?
 <p>This is a very basic functional e-commerce application, written in Java using Servlets and JSPs. It complies fully with the MVC design pattern, as Servlets are used as Controllers and JSPs take care of the Presentation (View). The Model is described by Entities, that are mapped on tables in a MySQL relational database. The application has 2 versions of DAO layer implementation: plain JDBC and Hibernate.</p>
 <p>You are free to use it as a template for your own online shop software. In current implementation you can add, remove and modify goods, users, roles and orders. The application provides registration and login procedures, passwords are saved into the database as hashes to increase security. You can make orders by adding goods into user's bucket.</p>
@@ -49,4 +43,4 @@
 ## :scroll: License
 
 Copyright © 2019 [Eugeny Prokop](https://github.com/p1q).<br />
-This project is MIT licensed. See the [License](https://github.com/p1q/InternetShop/blob/master/LICENSE) file.
+This project is MIT licensed. See the [License](LICENSE) file.

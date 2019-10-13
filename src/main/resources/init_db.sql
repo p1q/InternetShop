@@ -1,14 +1,4 @@
--- Install JDK latest version and set correct JAVA_HOME variable
--- Install Git (distributed version control system)
--- Install an IDE
--- Install and configure Apache Tomcat (I'm using version 8)
--- Install and configure MySQL database
--- Create a new schema 'internetshop' and import init_db.sql file into it
--- Clone project from GitHub into your IDE as a maven project. Default admin account is "admin", password is "1".
-
 SET NAMES 'utf8';
-
-DROP DATABASE IF EXISTS internetshop;
 
 CREATE DATABASE IF NOT EXISTS internetshop
     CHARACTER SET utf8

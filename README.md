@@ -21,7 +21,7 @@
 3. Install an IDE
 4. Install and configure Apache Tomcat (I'm using version 8)
 5. Install and configure MySQL database
-6. Create a new schema 'internetshop' and import init_db.sql file into it
+6. Import init_db.sql file into your database
 7. Clone project from GitHub into your IDE as a maven project. Default admin account is "admin", password is "1".
 8. That's all! You can run it.
 

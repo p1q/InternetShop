@@ -16,6 +16,7 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "role_id", columnDefinition = "INT")
     private Long roleId;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "name", columnDefinition = "VARCHAR")
     private RoleName roleName;

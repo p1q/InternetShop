@@ -30,8 +30,8 @@ CREATE TABLE IF NOT EXISTS orders (
                                       PRIMARY KEY (order_id, user_id)
 )
     ENGINE = INNODB,
-    AUTO_INCREMENT = 9,
-    AVG_ROW_LENGTH = 4096,
+    AUTO_INCREMENT = 18,
+    AVG_ROW_LENGTH = 1489,
     CHARACTER SET utf8,
     COLLATE utf8_general_ci;
 
@@ -110,7 +110,7 @@ CREATE TABLE IF NOT EXISTS orders_items (
                                             PRIMARY KEY (order_id, item_id)
 )
     ENGINE = INNODB,
-    AVG_ROW_LENGTH = 1820,
+    AVG_ROW_LENGTH = 862,
     CHARACTER SET utf8,
     COLLATE utf8_general_ci;
 
@@ -224,7 +224,16 @@ INSERT INTO orders(order_id, user_id) VALUES
 (1, 2),
 (6, 2),
 (7, 2),
-(8, 2);
+(8, 2),
+(9, 2),
+(10, 2),
+(11, 2),
+(12, 2),
+(13, 2),
+(14, 2),
+(15, 2),
+(16, 2),
+(17, 2);
 COMMIT;
 
 
@@ -268,8 +277,17 @@ INSERT INTO orders_items(order_id, item_id) VALUES
 (7, 5),
 (6, 6),
 (7, 6),
+(15, 7),
 (6, 8),
 (7, 8),
+(12, 8),
+(13, 8),
+(14, 8),
+(16, 8),
+(17, 8),
+(10, 10),
+(11, 10),
+(9, 11),
 (7, 12),
 (8, 12);
 COMMIT;

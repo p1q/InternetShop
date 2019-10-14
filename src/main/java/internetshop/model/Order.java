@@ -22,6 +22,7 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_id", columnDefinition = "INT")
     private Long orderId;
+
     @ManyToMany(cascade = {
             CascadeType.DETACH,
             CascadeType.MERGE,
@@ -33,6 +34,7 @@ public class Order {
             joinColumns = @JoinColumn(name = "order_id"),
             inverseJoinColumns = @JoinColumn(name = "item_id"))
     private List<Item> items = new ArrayList<>();
+
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;

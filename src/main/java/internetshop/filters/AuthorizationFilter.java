@@ -30,7 +30,7 @@ public class AuthorizationFilter implements Filter {
     private Map<String, RoleName> protectedUserUrls = new HashMap<>();
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(FilterConfig filterConfig) {
         protectedAdminUrls.put("/user/add-item", ADMIN);
         protectedAdminUrls.put("/user/delete-item", ADMIN);
         protectedAdminUrls.put("/user/delete-item-commit", ADMIN);
@@ -112,5 +112,7 @@ public class AuthorizationFilter implements Filter {
 
     @Override
     public void destroy() {
+        protectedAdminUrls.clear();
+        protectedUserUrls.clear();
     }
 }

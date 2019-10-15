@@ -146,62 +146,6 @@ ALTER TABLE buckets_items
     ADD CONSTRAINT items_fk FOREIGN KEY (item_id)
         REFERENCES items (item_id) ON DELETE NO ACTION;
 
-CREATE USER IF NOT EXISTS 'adm'@'%' IDENTIFIED WITH mysql_native_password PASSWORD EXPIRE NEVER;
-
-
-
-CREATE USER IF NOT EXISTS 'adm'@'192.168.1.34' IDENTIFIED WITH mysql_native_password PASSWORD EXPIRE DEFAULT;
-GRANT Select, Insert, Update, Delete, Create, Drop, References, Index, Alter, Create Temporary Tables, Lock Tables, Create View, Show View, Create Routine, Alter Routine, Execute, Event, Trigger ON  internetshop.* TO 'adm'@'192.168.1.34';
-
-
-
-CREATE USER IF NOT EXISTS 'adm'@'192.168.1.51' IDENTIFIED WITH mysql_native_password PASSWORD EXPIRE DEFAULT;
-GRANT Select, Insert, Update, Delete, Create, Drop, References, Index, Alter, Create Temporary Tables, Lock Tables, Create View, Show View, Create Routine, Alter Routine, Execute, Event, Trigger ON  internetshop.* TO 'adm'@'192.168.1.51';
-
-
-
-CREATE USER IF NOT EXISTS 'mysql.session'@'localhost' IDENTIFIED WITH mysql_native_password PASSWORD EXPIRE ACCOUNT LOCK;
-GRANT Super ON *.* TO 'mysql.session'@'localhost';
-GRANT Select ON  performance_schema.* TO 'mysql.session'@'localhost';
-GRANT Select ON TABLE mysql.user TO 'mysql.session'@'localhost';
-
-
-
-CREATE USER IF NOT EXISTS 'mysql.sys'@'localhost' IDENTIFIED WITH mysql_native_password PASSWORD EXPIRE ACCOUNT LOCK;
-GRANT Trigger ON  sys.* TO 'mysql.sys'@'localhost';
-GRANT Select ON TABLE sys.sys_config TO 'mysql.sys'@'localhost';
-
-
-
-CREATE USER IF NOT EXISTS 'root'@'%' IDENTIFIED WITH mysql_native_password PASSWORD EXPIRE NEVER;
-GRANT Usage ON *.* TO 'root'@'%'
-    WITH GRANT OPTION;
-GRANT ALL PRIVILEGES ON *.* TO 'root'@'%';
-GRANT Select, Insert, Update, Delete, Create, Drop, Grant Option, References, Index, Alter, Create Temporary Tables, Lock Tables, Create View, Show View, Create Routine, Alter Routine, Execute, Event, Trigger ON  internetshop.* TO 'root'@'%';
-
-
-
-CREATE USER IF NOT EXISTS 'root'@'192.168.1.51' IDENTIFIED WITH mysql_native_password PASSWORD EXPIRE DEFAULT;
-GRANT Usage ON *.* TO 'root'@'192.168.1.51'
-    WITH GRANT OPTION;
-GRANT ALL PRIVILEGES ON *.* TO 'root'@'192.168.1.51';
-GRANT Select, Insert, Update, Delete, Create, Drop, Grant Option, References, Index, Alter, Create Temporary Tables, Lock Tables, Create View, Show View, Create Routine, Alter Routine, Execute, Event, Trigger ON  internetshop.* TO 'root'@'192.168.1.51';
-
-
-
-CREATE USER IF NOT EXISTS 'root'@'localhost' IDENTIFIED WITH mysql_native_password PASSWORD EXPIRE DEFAULT;
-GRANT Usage ON *.* TO 'root'@'localhost'
-    WITH GRANT OPTION;
-GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost';
-GRANT PROXY ON ''@'' TO 'root'@'localhost' WITH GRANT OPTION;
-
-
-
-CREATE USER IF NOT EXISTS 'task'@'%' IDENTIFIED WITH mysql_native_password PASSWORD EXPIRE DEFAULT;
-GRANT Select, Insert, Update, Delete, Create, Drop, References, Index, Alter, Create Temporary Tables, Lock Tables, Create View, Show View, Create Routine, Alter Routine, Execute, Event, Trigger ON  task.* TO 'task'@'%';
-
-
-
 
 BEGIN;
 INSERT INTO users(user_id, name, surname, login, password, email, phone, token, salt) VALUES

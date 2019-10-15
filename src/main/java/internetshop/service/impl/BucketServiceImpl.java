@@ -20,8 +20,8 @@ public class BucketServiceImpl implements BucketService {
     }
 
     @Override
-    public Bucket get(Long id) {
-        return bucketDao.get(id).get();
+    public Optional<Bucket> get(Long bucketId) {
+        return bucketDao.get(bucketId);
     }
 
     @Override
@@ -40,7 +40,7 @@ public class BucketServiceImpl implements BucketService {
     }
 
     @Override
-    public List getAllItems(Bucket bucket) {
+    public List<Item> getAllItems(Bucket bucket) {
         return bucketDao.getAllItems(bucket.getBucketId());
     }
 

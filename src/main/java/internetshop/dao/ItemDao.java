@@ -2,11 +2,12 @@ package internetshop.dao;
 
 import internetshop.model.Item;
 import java.util.List;
+import java.util.Optional;
 
 public interface ItemDao {
     Item create(Item item);
 
-    Item get(Long id);
+    Optional<Item> get(Long itemId);
 
     List getAll();
 

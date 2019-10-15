@@ -21,9 +21,11 @@ public class AddItemToBucketController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
         Long userId = (Long) request.getSession(true).getAttribute("userId");
-        Item itemToAdd = itemService.get(Long.valueOf(request.getParameter("item_id")));
-        Optional<Bucket> bucket = bucketService.getByUserId(userId);
-        bucket.ifPresent(value -> bucketService.addItem(value, itemToAdd));
+        Optional<Item> itemToAdd = itemService.get(Long.valueOf(request.getParameter("item_id")));
+        if (itemToAdd.isPresent()) {
+            Optional<Bucket> bucket = bucketService.getByUserId(userId);
+            bucket.ifPresent(value -> bucketService.addItem(value, itemToAdd.get()));
+        }
 
         response.sendRedirect(request.getContextPath() + "/user/show-bucket");
     }

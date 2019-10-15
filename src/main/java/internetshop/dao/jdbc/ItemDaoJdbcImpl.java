@@ -9,6 +9,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 import org.apache.log4j.Logger;
 
 @Dao
@@ -33,7 +35,7 @@ public class ItemDaoJdbcImpl extends AbstractDao<Item> implements ItemDao {
     }
 
     @Override
-    public Item get(Long itemId) {
+    public Optional<Item> get(Long itemId) {
         String query = "SELECT * FROM items WHERE item_id = ?;";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, itemId.toString());
@@ -42,11 +44,11 @@ public class ItemDaoJdbcImpl extends AbstractDao<Item> implements ItemDao {
             String name = resultSet.getString("name");
             double price = resultSet.getDouble("price");
             resultSet.close();
-            return new Item(itemId, name, price);
+            return Optional.of(new Item(itemId, name, price));
         } catch (SQLException e) {
             LOGGER.error("Failed to get item with id" + itemId);
         }
-        return null;
+        return Optional.empty();
     }
 
     @Override

@@ -23,11 +23,11 @@ import org.apache.log4j.Logger;
 
 public class FactoryJdbc {
     private static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
-    private static final String DATABASE_NAME = "internetshop";
-    private static final String DATABASE_URL = "jdbc:mysql://192.168.1.34/"
+    private static final String DATABASE_NAME = "sql7308631";
+    private static final String DATABASE_URL = "jdbc:mysql://sql7.freemysqlhosting.net"
             + DATABASE_NAME + "?allowMultiQueries=true";
-    private static final String USER = "adm";
-    private static final String PASSWORD = "qwerty";
+    private static final String USER = "sql7308631";
+    private static final String PASSWORD = "w4tqIakZ6f";
     private static final Logger LOGGER = Logger.getLogger(FactoryJdbc.class);
 
     private static ItemDao itemDao;

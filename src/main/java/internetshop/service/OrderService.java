@@ -4,13 +4,14 @@ import internetshop.model.Bucket;
 import internetshop.model.Order;
 import internetshop.model.User;
 import java.util.List;
+import java.util.Optional;
 
 public interface OrderService {
     Order checkout(Bucket bucket, User user);
 
     Order create(Order order);
 
-    Order get(Long id);
+    Optional<Order> get(Long id);
 
     List getAll();
 

@@ -4,6 +4,7 @@ import internetshop.annotations.Inject;
 import internetshop.model.Item;
 import internetshop.service.ItemService;
 import java.io.IOException;
+import java.util.Optional;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,9 +20,11 @@ public class DeleteItemController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
         try {
-            Item item = itemService.get(Long.parseLong(request.getParameter("item_id")));
-            itemService.delete(item);
-            LOGGER.info("The item was deleted.");
+            Optional<Item> item = itemService.get(Long.parseLong(request.getParameter("item_id")));
+            if (item.isPresent()) {
+                itemService.delete(item.get());
+                LOGGER.info("The item was deleted.");
+            }
         } catch (NumberFormatException e) {
             LOGGER.error(e);
         }

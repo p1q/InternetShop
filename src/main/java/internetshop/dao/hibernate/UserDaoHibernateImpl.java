@@ -124,20 +124,29 @@ public class UserDaoHibernateImpl implements UserDao {
 
     @Override
     public User login(String login, String password) throws AuthenticationException {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            Query query = session.createQuery("FROM User WHERE login=:login");
-            query.setParameter("login", login);
-            Optional<User> user = query.list().stream().findFirst();
-            if (user.isPresent()) {
-                String registeredUserHash = user.get().getPassword();
-                String loginUserHash = HashUtil.hashPassword(password, user.get().getSalt());
-                if (registeredUserHash.equals(loginUserHash)) {
-                    return user.get();
-                }
+        Optional<User> user = getUserByLogin(login);
+        if (user.isPresent()) {
+            String registeredUserHash = user.get().getPassword();
+            String loginUserHash = HashUtil.hashPassword(password, user.get().getSalt());
+            if (registeredUserHash.equals(loginUserHash)) {
+                return user.get();
             }
         }
         LOGGER.error("Invalid login or password");
         throw new AuthenticationException("Invalid login or password");
+    }
+
+    @Override
+    public boolean isLoginExists(String login) {
+        return getUserByLogin(login).isPresent();
+    }
+
+    private Optional<User> getUserByLogin(String login) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Query query = session.createQuery("FROM User WHERE login=:login");
+            query.setParameter("login", login);
+            return query.list().stream().findFirst();
+        }
     }
 
     @Override
@@ -146,16 +155,6 @@ public class UserDaoHibernateImpl implements UserDao {
             Query query = session.createQuery("FROM User WHERE token=:token");
             query.setParameter("token", token);
             return query.uniqueResultOptional();
-        }
-    }
-
-    @Override
-    public boolean isLoginExists(String login) {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            Query query = session.createQuery("FROM User WHERE login=:login");
-            query.setParameter("login", login);
-            Optional<User> user = query.list().stream().findFirst();
-            return user.isPresent();
         }
     }
 }

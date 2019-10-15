@@ -7,6 +7,7 @@ import internetshop.model.Item;
 import internetshop.util.HibernateUtil;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import javax.persistence.criteria.CriteriaQuery;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
@@ -35,14 +36,14 @@ public class ItemDaoHibernateImpl implements ItemDao {
     }
 
     @Override
-    public Item get(Long itemId) {
+    public Optional<Item> get(Long itemId) {
         Item item = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             item = session.get(Item.class, itemId);
         } catch (Exception e) {
             LOGGER.error("Error retrieving the item. ", e);
         }
-        return item;
+        return Optional.ofNullable(item);
     }
 
     @Override

@@ -6,6 +6,7 @@ import internetshop.dao.ItemDao;
 import internetshop.model.Item;
 import internetshop.service.ItemService;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ItemServiceImpl implements ItemService {
@@ -18,12 +19,12 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public Item get(Long id) {
+    public Optional<Item> get(Long id) {
         return itemDao.get(id);
     }
 
     @Override
-    public List getAll() {
+    public List<Item> getAll() {
         return itemDao.getAll();
     }
 

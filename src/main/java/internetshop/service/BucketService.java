@@ -14,7 +14,7 @@ public interface BucketService {
 
     void deleteItem(Long bucketId, Long itemId);
 
-    Bucket get(Long bucketId);
+    Optional<Bucket> get(Long bucketId);
 
     Optional<Bucket> getByUserId(Long userId);
 

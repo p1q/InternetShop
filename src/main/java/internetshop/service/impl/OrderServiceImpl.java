@@ -9,6 +9,7 @@ import internetshop.model.User;
 import internetshop.service.BucketService;
 import internetshop.service.OrderService;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -23,12 +24,12 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order get(Long id) {
-        return orderDao.get(id).get();
+    public Optional<Order> get(Long id) {
+        return orderDao.get(id);
     }
 
     @Override
-    public List getAll() {
+    public List<Order> getAll() {
         return orderDao.getAllOrders();
     }
 

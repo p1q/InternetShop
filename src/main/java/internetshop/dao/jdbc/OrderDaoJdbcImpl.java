@@ -3,6 +3,7 @@ package internetshop.dao.jdbc;
 import internetshop.annotations.Dao;
 import internetshop.annotations.Inject;
 import internetshop.dao.OrderDao;
+import internetshop.exceptions.UserNotFoundException;
 import internetshop.model.Item;
 import internetshop.model.Order;
 import internetshop.model.User;
@@ -76,11 +77,17 @@ public class OrderDaoJdbcImpl extends AbstractDao<Item> implements OrderDao {
             preparedStatement.setLong(1, orderId);
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
-            User user = userService.get(resultSet.getLong("user_id")).get();
-            order.setUser(user);
-            order.setOrderId(orderId);
+            Optional<User> user = userService.get(resultSet.getLong("user_id"));
+            if (user.isPresent()) {
+                order.setUser(user.get());
+                order.setOrderId(orderId);
+            } else {
+                throw new UserNotFoundException("Error retrieving the user.");
+            }
         } catch (SQLException e) {
-            LOGGER.error("Failed to get bucket with ID: " + orderId);
+            LOGGER.error("Failed to get bucket with ID: " + orderId + ". " + e);
+        } catch (UserNotFoundException e) {
+            LOGGER.error("Error retrieving the user. " + e);
         }
         System.out.println();
         order.setItems(getAllItems(orderId));
@@ -95,7 +102,8 @@ public class OrderDaoJdbcImpl extends AbstractDao<Item> implements OrderDao {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Long itemId = resultSet.getLong("item_id");
-                items.add(itemService.get(itemId));
+                Optional<Item> item = itemService.get(itemId);
+                item.ifPresent(items::add);
             }
             resultSet.close();
         } catch (SQLException e) {
